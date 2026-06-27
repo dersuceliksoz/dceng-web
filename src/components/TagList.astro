@@ -1,0 +1,36 @@
+---
+/**
+ * Wrapping list of hairline chips (tags). Presentational only.
+ */
+interface Props {
+  items: string[];
+  /** accessible label for the list */
+  label?: string;
+  class?: string;
+}
+
+const { items, label, class: className } = Astro.props;
+---
+
+<ul class:list={['taglist', className]} aria-label={label}>
+  {items.map((item) => <li class="tag">{item}</li>)}
+</ul>
+
+<style>
+  .taglist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .tag {
+    font-size: var(--step--1);
+    line-height: 1.4;
+    padding: 0.28rem 0.6rem;
+    color: var(--color-text-muted);
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+</style>

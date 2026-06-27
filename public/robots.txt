@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dersuceliksoz.com/sitemap-index.xml

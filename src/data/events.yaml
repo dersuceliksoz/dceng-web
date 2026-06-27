@@ -1,0 +1,69 @@
+# Academy events. Single YAML array loaded by file() — each entry needs a unique `id`.
+# `status` is authored, but Upcoming/Past is (re)classified at build time from `date`.
+# All entries are placeholders (placeholder: true) — replace with real events.
+
+- id: control-design-webinar
+  title: "Practical Control Design: From Model to Hardware"
+  type: webinar
+  date: 2026-09-17
+  location: Online
+  status: upcoming
+  summary: >-
+    A walkthrough of taking a plant model to a deployed controller — design choices,
+    robustness margins, and the SIL/HIL checks that catch problems before hardware.
+  placeholder: true
+
+- id: hil-validation-workshop
+  title: "Hands-on HIL Validation Workshop"
+  type: workshop
+  date: 2026-10-29
+  location: Ankara, Türkiye
+  status: upcoming
+  summary: >-
+    Building a hardware-in-the-loop test bench end to end: signal interfaces, real-time
+    plant models, fault injection, and traceable test reporting.
+  placeholder: true
+
+- id: estimation-course-cohort
+  title: "Estimation & Sensor Fusion — Applied Course"
+  type: course
+  date: 2027-01-26
+  location: Online
+  status: upcoming
+  summary: >-
+    A practitioner course on state estimation: Kalman filtering, complementary and
+    nonlinear estimators, and tuning against real sensor data.
+  placeholder: true
+
+- id: simulink-modeling-talk
+  title: "Structuring Large Simulink Models for V&V"
+  type: talk
+  date: 2026-03-12
+  location: Online
+  status: past
+  summary: >-
+    Patterns for keeping large models maintainable and testable — referencing,
+    interface contracts, and model-level verification.
+  placeholder: true
+
+- id: robust-control-webinar
+  title: "Robust Control in Practice"
+  type: webinar
+  date: 2025-11-06
+  location: Online
+  status: past
+  summary: >-
+    What robustness margins mean on real systems, and how to design for uncertainty,
+    delay, and actuator limits without over-conservatism.
+  placeholder: true
+
+- id: mbse-workshop
+  title: "Model-Based Systems Engineering for Control Teams"
+  type: workshop
+  date: 2025-06-19
+  location: Ankara, Türkiye
+  status: past
+  summary: >-
+    Connecting requirements, architecture, and control models into one traceable
+    workflow that survives the whole project lifecycle.
+  placeholder: true

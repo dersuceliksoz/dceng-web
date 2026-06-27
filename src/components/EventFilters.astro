@@ -1,0 +1,29 @@
+---
+/**
+ * Upcoming / Past filter chips for Academy events. Hidden until JS loads
+ * (wrapped in [data-requires-js]); with JS off, all events remain visible.
+ * The page wraps these chips + the events list in a [data-filter-root].
+ */
+import { EVENT_FILTERS } from '../lib/events';
+
+interface Props {
+  /** the chip pressed on load (default: upcoming) */
+  default?: string;
+  class?: string;
+}
+
+const { default: defaultValue = 'upcoming', class: className } = Astro.props;
+---
+
+<div class:list={['event-filters', className]} data-requires-js>
+  <div class="filterbar" role="group" aria-label="Filter events by time">
+    {
+      EVENT_FILTERS.map((f) => (
+        <button type="button" class="chip" data-filter={f.value} aria-pressed={f.value === defaultValue}>
+          {f.label}
+        </button>
+      ))
+    }
+  </div>
+  <p class="visually-hidden" data-filter-status role="status" aria-live="polite"></p>
+</div>

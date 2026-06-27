@@ -1,0 +1,219 @@
+---
+/**
+ * Sticky site header with primary nav and a mobile hamburger disclosure.
+ * The toggle is progressive-enhancement only ([data-requires-js]); with JS off,
+ * the nav links remain visible (they fall back into normal flow).
+ * Behaviour lives in src/scripts/nav.ts (processed module import).
+ */
+import { NAV, profile } from '../data/profile';
+
+const current = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isActive = (href: string) => current === href.replace(/\/+$/, '');
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="/">
+      <span class="brand__mark" aria-hidden="true">DC</span>
+      <span class="brand__text">
+        <span class="brand__name">{profile.name}</span>
+        <span class="brand__role">{profile.role}</span>
+      </span>
+    </a>
+
+    <button
+      class="nav-toggle"
+      data-nav-toggle
+      data-requires-js
+      type="button"
+      aria-expanded="false"
+      aria-controls="primary-nav"
+    >
+      <span class="nav-toggle__bars" aria-hidden="true"></span>
+      <span class="visually-hidden">Menu</span>
+    </button>
+
+    <nav class="site-nav" id="primary-nav" data-nav-menu aria-label="Primary">
+      <ul class="site-nav__list">
+        {
+          NAV.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  import '../scripts/nav.ts';
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-m);
+    min-height: 4rem;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-s);
+    color: var(--color-text);
+  }
+  .brand:hover {
+    text-decoration: none;
+  }
+
+  .brand__mark {
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #fff;
+    background: var(--color-accent);
+    border-radius: var(--radius-sm);
+  }
+
+  .brand__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .brand__name {
+    font-weight: 600;
+  }
+  .brand__role {
+    font-size: var(--step--1);
+    color: var(--color-text-muted);
+  }
+
+  .site-nav__list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-l);
+  }
+
+  .site-nav a {
+    color: var(--color-text-muted);
+    font-size: var(--step-0);
+    padding-block: 0.25rem;
+  }
+  .site-nav a:hover {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .site-nav a[aria-current='page'] {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  /* Hamburger: hidden on desktop; under .no-js it is hidden everywhere
+     (data-requires-js), so the nav falls back to normal flow. */
+  .nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .nav-toggle__bars,
+  .nav-toggle__bars::before,
+  .nav-toggle__bars::after {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform var(--transition), background-color var(--transition);
+  }
+  .nav-toggle__bars {
+    position: relative;
+  }
+  .nav-toggle__bars::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 0;
+  }
+  .nav-toggle__bars::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 0;
+  }
+  .nav-toggle[aria-expanded='true'] .nav-toggle__bars {
+    background: transparent;
+  }
+  .nav-toggle[aria-expanded='true'] .nav-toggle__bars::before {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .nav-toggle[aria-expanded='true'] .nav-toggle__bars::after {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  @media (max-width: 760px) {
+    .nav-toggle {
+      display: inline-flex;
+    }
+
+    /* The slide-down panel behaviour only applies when JS is present.
+       `.js` / `.no-js` live on <html>, so they must stay global — otherwise
+       Astro scopes them to a component element and the rule never matches. */
+    :global(.js) .site-nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      display: none;
+      padding: var(--space-s) var(--space-l) var(--space-m);
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+    }
+    :global(.js) .site-nav[data-open='true'] {
+      display: block;
+    }
+
+    .site-nav__list {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+
+    /* no-JS fallback: nav wraps to a full-width row under the brand. */
+    :global(.no-js) .site-nav {
+      flex-basis: 100%;
+    }
+    :global(.no-js) .site-nav__list {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-m);
+      padding-bottom: var(--space-s);
+    }
+  }
+</style>

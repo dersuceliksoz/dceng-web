@@ -1,0 +1,150 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import TagList from '../components/TagList.astro';
+import Timeline from '../components/Timeline.astro';
+import Button from '../components/Button.astro';
+import { profile } from '../data/profile';
+import { experience } from '../data/experience';
+
+const work = experience.filter((e) => e.kind === 'experience');
+const education = experience.filter((e) => e.kind === 'education');
+---
+
+<Layout title="About" description={`About ${profile.name}, ${profile.role}.`}>
+  <PageHeader
+    eyebrow="About"
+    title="Engineering background & approach"
+    lede="A systems and control engineer who models first, designs for the disturbance, and verifies continuously."
+  />
+
+  <!-- Background -->
+  <section class="section">
+    <div class="container container--narrow stack--l stack">
+      <span class="eyebrow">Background</span>
+      {profile.background.map((p) => <p class="readable">{p}</p>)}
+    </div>
+  </section>
+
+  <!-- Engineering Focus -->
+  <section class="section section--divided">
+    <div class="container stack--l stack">
+      <span class="eyebrow">Engineering Focus</span>
+      <TagList items={profile.focusAreas} label="Engineering focus areas" />
+    </div>
+  </section>
+
+  <!-- Approach (emphasized) -->
+  <section class="section section--divided">
+    <div class="container stack--xl stack">
+      <div class="section-head stack">
+        <span class="eyebrow">Approach</span>
+        <h2>How I think as an engineer</h2>
+        <p class="lede">Tools change; the way a problem is approached is what holds up across projects.</p>
+      </div>
+      <div class="grid--2 approach">
+        {
+          profile.approach.map((a, i) => (
+            <article class="approach__item stack">
+              <span class="approach__num">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{a.title}</h3>
+              <p class="muted">{a.description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools & Technologies -->
+  <section class="section section--divided">
+    <div class="container stack--l stack">
+      <span class="eyebrow">Tools & Technologies</span>
+      <div class="grid tools">
+        {
+          profile.tools.map((group) => (
+            <div class="tools__group stack">
+              <h3 class="tools__label">{group.label}</h3>
+              <TagList items={group.items} label={group.label} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="section section--divided">
+    <div class="container container--narrow stack--l stack">
+      <span class="eyebrow">Experience</span>
+      <Timeline items={work} />
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="section section--divided">
+    <div class="container container--narrow stack--l stack">
+      <span class="eyebrow">Education</span>
+      <Timeline items={education} />
+    </div>
+  </section>
+
+  <!-- Resume -->
+  <section class="section section--divided">
+    <div class="container container--narrow stack">
+      <span class="eyebrow">Resume</span>
+      <p class="muted">A downloadable resume will be available here.</p>
+      <div class="cluster">
+        <Button disabled aria-disabled="true">Download Resume (coming soon)</Button>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .readable {
+    font-size: var(--step-1);
+    line-height: 1.6;
+    max-width: 65ch;
+  }
+
+  .section-head {
+    max-width: 60ch;
+    gap: var(--space-xs);
+  }
+
+  .approach {
+    gap: var(--space-xl);
+  }
+  .approach__item {
+    gap: var(--space-xs);
+    padding-top: var(--space-m);
+    border-top: 2px solid var(--color-accent);
+  }
+  .approach__num {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--color-accent-soft);
+  }
+
+  .tools__label {
+    font-size: var(--step-0);
+    font-weight: 600;
+  }
+  .tools__group {
+    gap: var(--space-s);
+  }
+
+  /* Disabled placeholder button */
+  :global(.btn[disabled]),
+  :global(.btn[aria-disabled='true']) {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 760px) {
+    .approach {
+      gap: var(--space-l);
+    }
+  }
+</style>

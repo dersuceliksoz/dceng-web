@@ -1,0 +1,29 @@
+---
+/**
+ * Category filter chips for the Publication Library. Hidden until JS loads
+ * (wrapped in [data-requires-js]); with JS off, all rows remain visible.
+ * The page wraps these chips + the PublicationList in a [data-filter-root].
+ */
+import { PUBLICATION_FILTERS } from '../lib/publications';
+
+interface Props {
+  /** the chip pressed on load; matches a filter value */
+  default?: string;
+  class?: string;
+}
+
+const { default: defaultValue = 'all', class: className } = Astro.props;
+---
+
+<div class:list={['pub-filters', className]} data-requires-js>
+  <div class="filterbar" role="group" aria-label="Filter publications by type">
+    {
+      PUBLICATION_FILTERS.map((f) => (
+        <button type="button" class="chip" data-filter={f.value} aria-pressed={f.value === defaultValue}>
+          {f.label}
+        </button>
+      ))
+    }
+  </div>
+  <p class="visually-hidden" data-filter-status role="status" aria-live="polite"></p>
+</div>

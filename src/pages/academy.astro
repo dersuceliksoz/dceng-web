@@ -1,0 +1,193 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import EventFilters from '../components/EventFilters.astro';
+import Button from '../components/Button.astro';
+import { prepareEvents, formatEventDate, EVENT_TYPE_LABELS } from '../lib/events';
+
+const events = prepareEvents(await getCollection('events'));
+---
+
+<Layout
+  title="Academy"
+  description="Webinars, courses, and workshops on applied control, modeling, and verification for working engineers."
+>
+  <PageHeader
+    eyebrow="Academy"
+    title="Learn applied control & systems engineering"
+    lede="Webinars, workshops, and courses that turn control and modeling theory into practice for working engineers."
+  />
+
+  <!-- Overview -->
+  <section class="section">
+    <div class="container container--narrow">
+      <p class="readable">
+        The Academy is where engineering knowledge is shared in the open — practical sessions on control design,
+        modeling and simulation, and verification, drawn from real project work.
+      </p>
+    </div>
+  </section>
+
+  <!-- Events -->
+  <section class="section section--divided">
+    <div class="container stack--l stack">
+      <span class="eyebrow">Events</span>
+      <div class="library stack--l stack" data-filter-root data-item-attr="data-when" data-param="when">
+        <EventFilters default="upcoming" />
+        <ul class="event-list">
+          {
+            events.map(({ entry, when }) => {
+              const iso = entry.data.date.toISOString().slice(0, 10);
+              return (
+                <li class="event-row" data-when={when} data-date={iso}>
+                  <div class="event-row__aside">
+                    <time class="event-row__date" datetime={iso}>
+                      {formatEventDate(entry.data.date)}
+                    </time>
+                    <span class="event-row__type">{EVENT_TYPE_LABELS[entry.data.type]}</span>
+                  </div>
+                  <div class="event-row__main">
+                    <div class="event-row__badges">
+                      {when === 'upcoming' && <span class="badge badge--accent">Upcoming</span>}
+                      {entry.data.placeholder && <span class="badge">Placeholder</span>}
+                    </div>
+                    <h3 class="event-row__title">{entry.data.title}</h3>
+                    <p class="muted event-row__loc">{entry.data.location}</p>
+                    <p class="muted event-row__summary">{entry.data.summary}</p>
+                    {when === 'upcoming' &&
+                      (entry.data.registrationUrl ? (
+                        <Button href={entry.data.registrationUrl} variant="secondary">
+                          Register
+                        </Button>
+                      ) : (
+                        <p class="muted event-row__note">Registration details coming soon.</p>
+                      ))}
+                  </div>
+                </li>
+              );
+            })
+          }
+        </ul>
+        <p class="muted" data-empty hidden>No events in this view.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses -->
+  <section class="section section--divided">
+    <div class="container stack--l stack">
+      <span class="eyebrow">Courses</span>
+      <article class="card courses-soon stack">
+        <h2>Structured courses are on the way</h2>
+        <p class="muted">
+          Self-paced courses on control design, state estimation, and model-based verification are in preparation.
+          In the meantime, join an upcoming event above.
+        </p>
+        <span class="badge">Coming Soon</span>
+      </article>
+    </div>
+  </section>
+
+  <script>
+    import '../scripts/filters.ts';
+  </script>
+</Layout>
+
+<style>
+  .readable {
+    font-size: var(--step-1);
+    line-height: 1.6;
+    max-width: 65ch;
+  }
+
+  .event-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .event-row {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: var(--space-l);
+    padding-block: var(--space-l);
+    border-top: 1px solid var(--color-border);
+  }
+  .event-row:last-child {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .event-row__aside {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+  }
+  .event-row__date {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--color-text-muted);
+  }
+  .event-row__type {
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-accent-soft);
+  }
+
+  .event-row__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    align-items: flex-start;
+  }
+  .event-row__badges:empty {
+    display: none;
+  }
+  .event-row__badges {
+    display: flex;
+    gap: var(--space-xs);
+  }
+  .event-row__title {
+    font-size: var(--step-1);
+  }
+  .event-row__summary {
+    max-width: 60ch;
+  }
+  .event-row__note {
+    font-size: var(--step--1);
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.1rem 0.45rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    background: var(--color-surface-2);
+  }
+  .badge--accent {
+    color: var(--color-accent);
+    border-color: var(--color-accent-soft);
+    background: var(--color-surface);
+  }
+
+  .courses-soon {
+    gap: var(--space-s);
+    align-items: flex-start;
+    max-width: 60ch;
+  }
+
+  @media (max-width: 760px) {
+    .event-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-s);
+    }
+    .event-row__aside {
+      flex-direction: row;
+      align-items: baseline;
+      gap: var(--space-s);
+    }
+  }
+</style>

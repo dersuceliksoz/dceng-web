@@ -1,0 +1,120 @@
+---
+/**
+ * Site footer. This is the ONLY place the company text
+ * "DC Engineering Solutions" appears on the site.
+ */
+import { NAV, profile } from '../data/profile';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__brand stack">
+      <span class="brand__mark" aria-hidden="true">DC</span>
+      <p class="site-footer__line">{profile.brandLine}</p>
+      <p class="muted site-footer__company">{profile.company}</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <span class="site-footer__heading">Site</span>
+      <ul class="stack">
+        {NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="site-footer__contact">
+      <span class="site-footer__heading">Contact</span>
+      <ul class="stack">
+        <li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+        <li class="muted">{profile.location}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container site-footer__base">
+    <p class="muted">© {year} {profile.name}. All rights reserved.</p>
+    <p class="muted">Built with Astro · Static site</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-3xl);
+    border-top: 1px solid var(--color-border);
+    background: var(--color-surface-2);
+  }
+
+  .site-footer__inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--space-xl);
+    padding-block: var(--space-2xl) var(--space-xl);
+  }
+
+  .site-footer__brand {
+    gap: var(--space-s);
+    max-width: 32ch;
+  }
+
+  .brand__mark {
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #fff;
+    background: var(--color-accent);
+    border-radius: var(--radius-sm);
+  }
+
+  .site-footer__line {
+    font-size: var(--step-0);
+  }
+
+  .site-footer__company {
+    font-size: var(--step--1);
+    letter-spacing: 0.04em;
+  }
+
+  .site-footer__heading {
+    display: block;
+    margin-bottom: var(--space-s);
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent-soft);
+  }
+
+  .site-footer__nav ul,
+  .site-footer__contact ul {
+    gap: var(--space-xs);
+  }
+
+  .site-footer a {
+    color: var(--color-text-muted);
+  }
+  .site-footer a:hover {
+    color: var(--color-accent);
+  }
+
+  .site-footer__base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-s);
+    padding-block: var(--space-l);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 760px) {
+    .site-footer__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-l);
+      padding-block: var(--space-xl) var(--space-l);
+    }
+  }
+</style>

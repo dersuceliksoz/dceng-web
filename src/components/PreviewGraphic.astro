@@ -1,0 +1,189 @@
+---
+/**
+ * 16:9 inline-SVG technical placeholder. Four diagram variants, themed with the
+ * site tokens. No raster images. Decorative by default; pass a `title` to expose
+ * it as an image to assistive tech.
+ */
+type Variant = 'control-loop' | 'grid-plot' | 'signal' | 'nodes';
+
+interface Props {
+  variant?: Variant;
+  title?: string;
+  class?: string;
+}
+
+const { variant = 'grid-plot', title, class: className } = Astro.props;
+
+const titles: Record<Variant, string> = {
+  'control-loop': 'Closed-loop control block diagram',
+  'grid-plot': 'Step-response plot on a technical grid',
+  signal: 'Stacked signal traces',
+  nodes: 'System node graph',
+};
+const label = title ?? titles[variant];
+---
+
+<figure class:list={['preview', className]} aria-hidden={title ? undefined : 'true'}>
+  <svg
+    viewBox="0 0 320 180"
+    role={title ? 'img' : 'presentation'}
+    aria-label={title ? label : undefined}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    {title && <title>{label}</title>}
+
+    {
+      variant === 'control-loop' && (
+        <g>
+          <text class="lbl" x="20" y="86">r</text>
+          <line class="ln" x1="22" y1="90" x2="60" y2="90" />
+          <polygon class="ah" points="60,90 53,86 53,94" />
+          <circle class="node" cx="70" cy="90" r="9" />
+          <text class="sign" x="62" y="84">+</text>
+          <text class="sign" x="63" y="108">−</text>
+          <line class="ln" x1="79" y1="90" x2="106" y2="90" />
+          <polygon class="ah" points="106,90 99,86 99,94" />
+          <rect class="blk" x="106" y="72" width="52" height="36" rx="3" />
+          <text class="lbl" x="132" y="95" text-anchor="middle">C(s)</text>
+          <line class="ln" x1="158" y1="90" x2="196" y2="90" />
+          <polygon class="ah" points="196,90 189,86 189,94" />
+          <rect class="blk" x="196" y="72" width="52" height="36" rx="3" />
+          <text class="lbl" x="222" y="95" text-anchor="middle">P(s)</text>
+          <line class="ln" x1="248" y1="90" x2="300" y2="90" />
+          <polygon class="ah" points="300,90 293,86 293,94" />
+          <text class="lbl" x="305" y="86">y</text>
+          <circle class="dot" cx="272" cy="90" r="2.6" />
+          <path class="ln" d="M272 90 L272 150 L70 150 L70 99" fill="none" />
+          <polygon class="ah" points="70,99 66,106 74,106" />
+        </g>
+      )
+    }
+
+    {
+      variant === 'grid-plot' && (
+        <g>
+          <line class="grid" x1="80" y1="28" x2="80" y2="150" />
+          <line class="grid" x1="130" y1="28" x2="130" y2="150" />
+          <line class="grid" x1="180" y1="28" x2="180" y2="150" />
+          <line class="grid" x1="230" y1="28" x2="230" y2="150" />
+          <line class="grid" x1="280" y1="28" x2="280" y2="150" />
+          <line class="grid" x1="40" y1="60" x2="300" y2="60" />
+          <line class="grid" x1="40" y1="90" x2="300" y2="90" />
+          <line class="grid" x1="40" y1="120" x2="300" y2="120" />
+          <line class="axis" x1="40" y1="28" x2="40" y2="150" />
+          <line class="axis" x1="40" y1="150" x2="300" y2="150" />
+          <line class="setpoint" x1="44" y1="60" x2="300" y2="60" />
+          <path class="curve" d="M44 142 C 78 142, 86 48, 120 58 S 188 66, 300 62" fill="none" />
+        </g>
+      )
+    }
+
+    {
+      variant === 'signal' && (
+        <g>
+          <line class="grid" x1="30" y1="45" x2="300" y2="45" />
+          <line class="grid" x1="30" y1="90" x2="300" y2="90" />
+          <line class="grid" x1="30" y1="135" x2="300" y2="135" />
+          <path class="curve" fill="none" d="M30 45 Q 47 25 64 45 T 98 45 T 132 45 T 166 45 T 200 45 T 234 45 T 268 45 T 302 45" />
+          <path class="curve curve--soft" fill="none" d="M30 90 Q 42 78 54 90 T 78 90 T 102 90 T 126 90 T 150 90 T 174 90 T 198 90 T 222 90 T 246 90 T 270 90 T 294 90" />
+          <path class="curve" fill="none" d="M30 135 Q 40 127 50 135 T 70 135 T 90 135 T 110 135 T 130 135 T 150 135 T 170 135 T 190 135 T 210 135 T 230 135 T 250 135 T 270 135 T 290 135" />
+        </g>
+      )
+    }
+
+    {
+      variant === 'nodes' && (
+        <g>
+          <line class="ln" x1="60" y1="50" x2="120" y2="90" />
+          <line class="ln" x1="60" y1="130" x2="120" y2="90" />
+          <line class="ln" x1="120" y1="90" x2="180" y2="45" />
+          <line class="ln" x1="120" y1="90" x2="200" y2="120" />
+          <line class="ln" x1="180" y1="45" x2="260" y2="80" />
+          <line class="ln" x1="180" y1="45" x2="200" y2="120" />
+          <line class="ln" x1="200" y1="120" x2="260" y2="80" />
+          <line class="ln" x1="200" y1="120" x2="250" y2="145" />
+          <line class="ln" x1="260" y1="80" x2="250" y2="145" />
+          <circle class="node" cx="60" cy="50" r="6" />
+          <circle class="node" cx="60" cy="130" r="6" />
+          <circle class="dot-lg" cx="120" cy="90" r="7" />
+          <circle class="node" cx="180" cy="45" r="6" />
+          <circle class="dot-lg" cx="200" cy="120" r="7" />
+          <circle class="node" cx="260" cy="80" r="6" />
+          <circle class="node" cx="250" cy="145" r="6" />
+        </g>
+      )
+    }
+  </svg>
+</figure>
+
+<style>
+  .preview {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    margin: 0;
+    background: var(--color-surface-2);
+    border-bottom: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  .preview svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .ln {
+    stroke: var(--color-accent-soft);
+    stroke-width: 1.5;
+    fill: none;
+  }
+  .ah {
+    fill: var(--color-accent-soft);
+  }
+  .blk {
+    fill: var(--color-surface);
+    stroke: var(--color-accent);
+    stroke-width: 1.5;
+  }
+  .node {
+    fill: var(--color-surface);
+    stroke: var(--color-accent);
+    stroke-width: 1.5;
+  }
+  .dot {
+    fill: var(--color-accent-soft);
+  }
+  .dot-lg {
+    fill: var(--color-accent);
+  }
+  .grid {
+    stroke: var(--color-border);
+    stroke-width: 1;
+  }
+  .axis {
+    stroke: var(--color-ink-soft, var(--color-text-muted));
+    stroke-width: 1.5;
+  }
+  .setpoint {
+    stroke: var(--color-text-muted);
+    stroke-width: 1;
+    stroke-dasharray: 4 4;
+  }
+  .curve {
+    stroke: var(--color-accent);
+    stroke-width: 2;
+  }
+  .curve--soft {
+    stroke: var(--color-accent-soft);
+    stroke-width: 1.5;
+  }
+  .lbl {
+    fill: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+  .sign {
+    fill: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 9px;
+  }
+</style>

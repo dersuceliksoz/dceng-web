@@ -1,0 +1,76 @@
+---
+/**
+ * Polymorphic button. Renders an <a> when `href` is given, otherwise a <button>.
+ * Variants: primary (navy fill), secondary (hairline outline), ghost (text).
+ */
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { href, variant = 'primary', type = 'button', class: className, ...rest } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  class:list={['btn', `btn--${variant}`, className]}
+  href={href}
+  type={href ? undefined : type}
+  {...rest}
+>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: 0.6rem 1.15rem;
+    font-size: var(--step-0);
+    font-weight: 500;
+    line-height: 1;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition), border-color var(--transition), color var(--transition);
+    text-align: center;
+  }
+
+  .btn:hover {
+    text-decoration: none;
+  }
+
+  .btn--primary {
+    background: var(--color-accent);
+    color: #fff;
+    border-color: var(--color-accent);
+  }
+  .btn--primary:hover {
+    background: var(--color-accent-soft);
+    border-color: var(--color-accent-soft);
+  }
+
+  .btn--secondary {
+    background: var(--color-surface);
+    color: var(--color-accent);
+    border-color: var(--color-border);
+  }
+  .btn--secondary:hover {
+    border-color: var(--color-accent);
+    background: var(--color-surface-2);
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-text);
+    padding-inline: 0.35rem;
+  }
+  .btn--ghost:hover {
+    color: var(--color-accent);
+  }
+</style>

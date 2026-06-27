@@ -1,0 +1,270 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import TechnicalCard from '../components/TechnicalCard.astro';
+import { profile } from '../data/profile';
+import { sortPublicationsAll, formatPubDate, CATEGORY_LABELS } from '../lib/publications';
+import { prepareEvents, formatEventDate, EVENT_TYPE_LABELS } from '../lib/events';
+
+const pubs = sortPublicationsAll(
+  await getCollection('publications', ({ data }) => (import.meta.env.PROD ? data.status !== 'draft' : true)),
+);
+const latest = [...pubs].sort((a, b) => b.data.date.getTime() - a.data.date.getTime())[0];
+
+const events = prepareEvents(await getCollection('events'));
+const upcoming = events.filter((e) => e.when === 'upcoming').slice(0, 3);
+
+const focus = [
+  {
+    eyebrow: '01',
+    title: 'System Design',
+    graphic: 'nodes' as const,
+    body: 'Framing the problem — requirements, architecture, and the interfaces that hold a control-driven system together.',
+  },
+  {
+    eyebrow: '02',
+    title: 'Modeling & Simulation',
+    graphic: 'grid-plot' as const,
+    body: 'Turning physics into tractable models and simulators you can design against and trust under test.',
+  },
+  {
+    eyebrow: '03',
+    title: 'Control Systems',
+    graphic: 'control-loop' as const,
+    body: 'Designing controllers and estimators that stay stable and performant under real disturbance and uncertainty.',
+  },
+  {
+    eyebrow: '04',
+    title: 'Verification & Validation',
+    graphic: 'signal' as const,
+    body: 'Closing the loop from requirements through SIL/HIL, so behaviour on hardware is confirmed — not hoped for.',
+  },
+];
+---
+
+<Layout>
+  <!-- Hero -->
+  <section class="hero grid-bg">
+    <div class="container hero__inner">
+      <div class="hero__text stack">
+        <span class="eyebrow">{profile.role}</span>
+        <h1>{profile.name}</h1>
+        <p class="lede">{profile.brandLine}</p>
+        <div class="cluster hero__actions">
+          <Button href="/engineering">Engineering</Button>
+          <Button href="/publications" variant="secondary">Publications</Button>
+          <Button href="/academy" variant="secondary">Academy</Button>
+        </div>
+      </div>
+
+      <div class="hero__media">
+        {/* Replace with a real portrait: drop an <img> inside .hero__portrait. */}
+        <div class="hero__portrait" role="img" aria-label={`${profile.name} — portrait placeholder`}>
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <clipPath id="portraitClip"><circle cx="100" cy="100" r="96" /></clipPath>
+            </defs>
+            <g clip-path="url(#portraitClip)">
+              <rect width="200" height="200" fill="var(--color-surface-2)" />
+              <g stroke="var(--color-border)" stroke-width="1">
+                <line x1="0" y1="50" x2="200" y2="50" />
+                <line x1="0" y1="100" x2="200" y2="100" />
+                <line x1="0" y1="150" x2="200" y2="150" />
+                <line x1="50" y1="0" x2="50" y2="200" />
+                <line x1="100" y1="0" x2="100" y2="200" />
+                <line x1="150" y1="0" x2="150" y2="200" />
+              </g>
+              <circle cx="100" cy="100" r="62" fill="none" stroke="var(--color-accent-soft)" stroke-width="1.25" />
+              <circle cx="100" cy="100" r="40" fill="none" stroke="var(--color-accent-soft)" stroke-width="1.25" stroke-dasharray="3 4" />
+              <text x="100" y="114" text-anchor="middle" font-family="var(--font-sans)" font-size="46" font-weight="600" fill="var(--color-accent)">DC</text>
+            </g>
+            <circle cx="100" cy="100" r="96" fill="none" stroke="var(--color-border)" stroke-width="2" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Short statement -->
+  <section class="section section--tight statement">
+    <div class="container container--narrow">
+      <p class="statement__text">{profile.shortStatement}</p>
+    </div>
+  </section>
+
+  <!-- Technical Focus -->
+  <section class="section section--divided">
+    <div class="container stack--xl stack">
+      <div class="section-head stack">
+        <span class="eyebrow">Technical Focus</span>
+        <h2>The engineering lifecycle, end to end</h2>
+        <p class="lede">From framing a problem to validating the result on hardware — each stage feeding the next.</p>
+      </div>
+      <div class="grid">
+        {
+          focus.map((f) => (
+            <TechnicalCard title={f.title} eyebrow={f.eyebrow} graphic={f.graphic}>
+              {f.body}
+            </TechnicalCard>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest publication + upcoming activities -->
+  <section class="section section--divided">
+    <div class="container">
+      <div class="grid--2 split">
+        <div class="split__col stack">
+          <span class="eyebrow">Latest Publication</span>
+          {
+            latest ? (
+              <article class="card stack feature">
+                <div class="cluster feature__meta">
+                  <span class="feature__cat">{CATEGORY_LABELS[latest.data.category]}</span>
+                  <time datetime={latest.data.date.toISOString().slice(0, 10)} class="muted">
+                    {formatPubDate(latest.data.date)}
+                  </time>
+                </div>
+                <h3>{latest.data.title}</h3>
+                <p class="muted">{latest.data.summary}</p>
+                <Button href="/publications" variant="ghost">View the library →</Button>
+              </article>
+            ) : (
+              <p class="muted">No publications yet.</p>
+            )
+          }
+        </div>
+
+        <div class="split__col stack">
+          <span class="eyebrow">Upcoming Activities</span>
+          {
+            upcoming.length > 0 ? (
+              <ul class="stack activities">
+                {upcoming.map(({ entry }) => (
+                  <li class="activity">
+                    <time datetime={entry.data.date.toISOString().slice(0, 10)} class="activity__date">
+                      {formatEventDate(entry.data.date)}
+                    </time>
+                    <p class="activity__title">{entry.data.title}</p>
+                    <p class="muted activity__meta">
+                      {EVENT_TYPE_LABELS[entry.data.type]} · {entry.data.location}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p class="muted">No upcoming activities scheduled.</p>
+            )
+          }
+          <Button href="/academy" variant="ghost">All Academy events →</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero */
+  .hero {
+    padding-block: var(--space-3xl) var(--space-2xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+  .hero__text {
+    gap: var(--space-m);
+  }
+  .hero h1 {
+    font-size: var(--step-4);
+  }
+  .hero__actions {
+    margin-top: var(--space-s);
+    gap: var(--space-s);
+  }
+  .hero__media {
+    display: flex;
+    justify-content: center;
+  }
+  .hero__portrait {
+    width: min(280px, 70vw);
+    aspect-ratio: 1;
+  }
+  .hero__portrait svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Short statement */
+  .statement__text {
+    font-size: var(--step-2);
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--color-text);
+  }
+
+  .section-head {
+    max-width: 60ch;
+    gap: var(--space-xs);
+  }
+
+  /* Split section */
+  .split {
+    gap: var(--space-2xl);
+  }
+  .feature__cat {
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-accent-soft);
+  }
+  .feature__meta {
+    justify-content: space-between;
+  }
+
+  .activities {
+    gap: var(--space-m);
+  }
+  .activity {
+    padding-bottom: var(--space-m);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .activity__date {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--color-accent-soft);
+  }
+  .activity__title {
+    font-weight: 600;
+    margin-top: 0.15rem;
+  }
+  .activity__meta {
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 760px) {
+    .hero {
+      padding-block: var(--space-xl);
+    }
+    .hero__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-l);
+      text-align: center;
+    }
+    .hero__media {
+      order: -1;
+    }
+    .hero__actions {
+      justify-content: center;
+    }
+    .split {
+      gap: var(--space-xl);
+    }
+  }
+</style>

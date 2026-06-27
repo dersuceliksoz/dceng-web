@@ -1,0 +1,130 @@
+---
+/**
+ * A single contact channel card. Renders a link when `href` is present;
+ * placeholder channels render as muted, clearly-marked "to add" entries.
+ */
+import type { ContactChannel } from '../data/profile';
+
+interface Props {
+  contact: ContactChannel;
+  class?: string;
+}
+
+const { contact, class: className } = Astro.props;
+const { channel, label, value, href, placeholder } = contact;
+const isLink = Boolean(href) && !placeholder;
+---
+
+<article class:list={['contact-card', { 'contact-card--placeholder': placeholder }, className]}>
+  <span class="contact-card__icon" aria-hidden="true">
+    {channel === 'email' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <path d="M3 7l9 6 9-6" />
+      </svg>
+    )}
+    {channel === 'linkedin' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 0 1 4 0v4M11 17v-7" />
+      </svg>
+    )}
+    {channel === 'github' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M9 19c-4 1.5-4-2-6-2m12 4v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6 0C6.6 3.7 5.5 4 5.5 4a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 10.4c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V22" />
+      </svg>
+    )}
+    {channel === 'scholar' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M12 4 2 9l10 5 10-5-10-5Z" />
+        <path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5" />
+      </svg>
+    )}
+    {channel === 'location' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M12 21s-6-5.2-6-10a6 6 0 0 1 12 0c0 4.8-6 10-6 10Z" />
+        <circle cx="12" cy="11" r="2.2" />
+      </svg>
+    )}
+  </span>
+
+  <div class="contact-card__body">
+    <span class="contact-card__label">{label}</span>
+    {isLink ? (
+      <a class="contact-card__value" href={href}>{value}</a>
+    ) : (
+      <span class:list={['contact-card__value', { muted: placeholder }]}>{value}</span>
+    )}
+    {placeholder && <span class="badge">Replace</span>}
+  </div>
+</article>
+
+<style>
+  .contact-card {
+    display: flex;
+    gap: var(--space-m);
+    align-items: flex-start;
+    padding: var(--space-l);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    transition: border-color var(--transition);
+  }
+
+  .contact-card:hover {
+    border-color: var(--color-accent-soft);
+  }
+
+  .contact-card--placeholder {
+    background: var(--color-surface-2);
+    border-style: dashed;
+  }
+
+  .contact-card__icon {
+    flex: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-2);
+    color: var(--color-accent);
+    border: 1px solid var(--color-border);
+  }
+
+  .contact-card__icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .contact-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .contact-card__label {
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .contact-card__value {
+    font-weight: 500;
+    word-break: break-word;
+  }
+
+  .badge {
+    align-self: flex-start;
+    margin-top: 0.2rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.1rem 0.45rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    background: var(--color-surface);
+  }
+</style>

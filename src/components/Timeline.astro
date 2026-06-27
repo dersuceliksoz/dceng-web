@@ -1,0 +1,107 @@
+---
+/**
+ * Vertical hairline-rail timeline. Used on the About page for experience and
+ * education. Items render in the order given.
+ */
+import type { TimelineItem } from '../data/experience';
+
+interface Props {
+  items: TimelineItem[];
+  class?: string;
+}
+
+const { items, class: className } = Astro.props;
+
+const kindLabel: Record<TimelineItem['kind'], string> = {
+  experience: 'Experience',
+  education: 'Education',
+};
+---
+
+<ol class:list={['timeline', className]}>
+  {
+    items.map((item) => (
+      <li class="timeline__item">
+        <div class="timeline__marker" aria-hidden="true" />
+        <div class="timeline__content stack">
+          <div class="timeline__meta cluster">
+            <span class="timeline__period">{item.period}</span>
+            <span class="timeline__kind">{kindLabel[item.kind]}</span>
+            {item.placeholder && <span class="badge">Placeholder</span>}
+          </div>
+          <h3 class="timeline__role">{item.role}</h3>
+          <p class="timeline__org">
+            {item.org}
+            {item.place && <span class="muted"> · {item.place}</span>}
+          </p>
+          <p class="muted">{item.summary}</p>
+        </div>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    padding-left: var(--space-l);
+    border-left: 1px solid var(--color-border);
+  }
+
+  .timeline__item {
+    position: relative;
+  }
+
+  .timeline__marker {
+    position: absolute;
+    left: calc(-1 * var(--space-l) - 5px);
+    top: 0.55rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--color-surface);
+    border: 2px solid var(--color-accent);
+  }
+
+  .timeline__content {
+    gap: var(--space-2xs);
+  }
+
+  .timeline__meta {
+    gap: var(--space-s);
+  }
+
+  .timeline__period {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--color-text-muted);
+  }
+
+  .timeline__kind {
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent-soft);
+  }
+
+  .timeline__role {
+    font-size: var(--step-1);
+  }
+
+  .timeline__org {
+    font-weight: 500;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.1rem 0.45rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    background: var(--color-surface-2);
+  }
+</style>

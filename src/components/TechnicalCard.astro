@@ -1,0 +1,76 @@
+---
+/**
+ * Hairline card with an optional eyebrow/index, title, body slot, and an
+ * optional PreviewGraphic. When `href` is set the whole card is clickable via a
+ * stretched link (only rendered when href exists, so it never wraps nothing).
+ */
+import PreviewGraphic from './PreviewGraphic.astro';
+
+type GraphicVariant = 'control-loop' | 'grid-plot' | 'signal' | 'nodes';
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  href?: string;
+  graphic?: GraphicVariant;
+  class?: string;
+}
+
+const { title, eyebrow, href, graphic, class: className } = Astro.props;
+---
+
+<article class:list={['tcard', { 'tcard--linked': href }, className]}>
+  {graphic && <PreviewGraphic variant={graphic} />}
+  <div class="tcard__body stack">
+    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+    <h3 class="tcard__title">
+      {href ? <a href={href} class="tcard__link">{title}</a> : title}
+    </h3>
+    <div class="tcard__text muted"><slot /></div>
+  </div>
+</article>
+
+<style>
+  .tcard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color var(--transition);
+  }
+
+  .tcard--linked:hover {
+    border-color: var(--color-accent-soft);
+  }
+
+  .tcard__body {
+    padding: var(--space-l);
+    gap: var(--space-xs);
+  }
+
+  .tcard__title {
+    font-size: var(--step-1);
+  }
+
+  .tcard__text {
+    font-size: var(--step-0);
+    line-height: 1.55;
+  }
+
+  /* Stretched link: makes the whole card a hit target without nesting issues. */
+  .tcard__link {
+    color: inherit;
+  }
+  .tcard__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .tcard__link:hover {
+    text-decoration: none;
+    color: var(--color-accent);
+  }
+</style>
