@@ -14,8 +14,8 @@ const education = experience.filter((e) => e.kind === 'education');
 <Layout title="About" description={`About ${profile.name}, ${profile.role}.`}>
   <PageHeader
     eyebrow="About"
-    title="Engineering background & approach"
-    lede="A systems and control engineer who models first, designs for the disturbance, and verifies continuously."
+    title="Engineering Practice"
+    lede="Applying systems thinking to the design, modeling and validation of engineering systems."
   />
 
   <!-- Background -->
@@ -39,8 +39,8 @@ const education = experience.filter((e) => e.kind === 'education');
     <div class="container stack--xl stack">
       <div class="section-head stack">
         <span class="eyebrow">Approach</span>
-        <h2>How I think as an engineer</h2>
-        <p class="lede">Tools change; the way a problem is approached is what holds up across projects.</p>
+        <h2>Engineering Principles</h2>
+        <p class="lede">Tools evolve. Principles remain.</p>
       </div>
       <div class="grid--2 approach">
         {
@@ -48,7 +48,10 @@ const education = experience.filter((e) => e.kind === 'education');
             <article class="approach__item stack">
               <span class="approach__num">{String(i + 1).padStart(2, '0')}</span>
               <h3>{a.title}</h3>
-              <p class="muted">{a.description}</p>
+              <p class="muted approach__tagline">{a.tagline}</p>
+              <ul class="muted approach__list">
+                {a.items.map((item) => <li>{item}</li>)}
+              </ul>
             </article>
           ))
         }
@@ -93,9 +96,8 @@ const education = experience.filter((e) => e.kind === 'education');
   <section class="section section--divided">
     <div class="container container--narrow stack">
       <span class="eyebrow">Resume</span>
-      <p class="muted">A downloadable resume will be available here.</p>
       <div class="cluster">
-        <Button disabled aria-disabled="true">Download Resume (coming soon)</Button>
+        <Button href="/resume/Dersu_Celiksoz_Resume.pdf" target="_blank" rel="noopener noreferrer">Download Resume</Button>
       </div>
     </div>
   </section>
@@ -126,6 +128,13 @@ const education = experience.filter((e) => e.kind === 'education');
     font-size: var(--step--1);
     color: var(--color-accent-soft);
   }
+  .approach__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+    padding-left: 1.1em;
+    list-style: disc;
+  }
 
   .tools__label {
     font-size: var(--step-0);
@@ -133,13 +142,6 @@ const education = experience.filter((e) => e.kind === 'education');
   }
   .tools__group {
     gap: var(--space-s);
-  }
-
-  /* Disabled placeholder button */
-  :global(.btn[disabled]),
-  :global(.btn[aria-disabled='true']) {
-    opacity: 0.55;
-    cursor: not-allowed;
   }
 
   @media (max-width: 760px) {

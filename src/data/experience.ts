@@ -1,8 +1,7 @@
 /**
  * Experience & education timeline (About page).
- * REPLACE-ME: placeholder roles/dates for a Systems & Control engineer —
- * swap in Dersu's real history. Items are rendered newest-first by the
- * Timeline component in the order listed here.
+ * Items are rendered newest-first by the Timeline component in the order
+ * listed here.
  */
 
 export interface TimelineItem {
@@ -12,7 +11,8 @@ export interface TimelineItem {
   period: string;
   /** optional location */
   place?: string;
-  summary: string;
+  /** short bullet points describing the role/program */
+  summary: string[];
   /** marks placeholder data to be replaced */
   placeholder?: boolean;
 }
@@ -20,52 +20,59 @@ export interface TimelineItem {
 export const experience: TimelineItem[] = [
   {
     kind: 'experience',
-    role: 'Independent Systems & Control Engineer',
+    role: 'Founder | Systems & Control Engineer',
     org: 'DC Engineering Solutions',
-    period: '2024 — Present',
+    period: '2026 – Present',
     place: 'Ankara, Türkiye',
-    summary:
-      'Modeling, control design, and SIL/HIL validation for control-driven systems; technical writing and applied research.',
-    placeholder: true,
+    summary: [
+      'Independent engineering services in systems & control engineering',
+      'Modeling & simulation, verification & validation, and technical consulting',
+      'Technical publications, patents, and engineering knowledge sharing',
+    ],
   },
   {
     kind: 'experience',
-    role: 'Control Systems Engineer',
-    org: 'Placeholder Engineering Company',
-    period: '2021 — 2024',
+    role: 'Senior Controls Design Engineer',
+    org: 'FNSS Defense Systems',
+    period: '2021 – 2026',
     place: 'Ankara, Türkiye',
-    summary:
-      'Developed plant models and real-time controllers, built HIL test benches, and led verification campaigns for embedded control units.',
-    placeholder: true,
+    summary: [
+      'Model-based control design for hybrid electric tracked vehicles',
+      'Real-time simulators, reduced-order modeling, and HIL validation',
+      'Motion control, power management, and fault management',
+    ],
   },
   {
     kind: 'experience',
-    role: 'Modeling & Simulation Engineer',
-    org: 'Placeholder Research Lab',
-    period: '2019 — 2021',
+    role: 'Undergraduate Engineer',
+    org: 'STM Defense Technologies',
+    period: '2020 – 2021',
     place: 'Ankara, Türkiye',
-    summary:
-      'Built high-fidelity vehicle and actuator models, performed parameter identification, and supported controller tuning studies.',
-    placeholder: true,
+    summary: [
+      'UAV gimbal electromechanical design & control',
+      'Vibration isolation solutions for electromechanical components',
+    ],
   },
   {
     kind: 'education',
-    role: 'M.Sc. in Control / Mechatronics Engineering',
-    org: 'Placeholder University',
-    period: '2017 — 2019',
-    place: 'Türkiye',
-    summary:
-      'Thesis on model-based control of a nonlinear electromechanical system, with experimental validation.',
-    placeholder: true,
+    role: 'M.Sc. in Mechanical Engineering',
+    org: 'Middle East Technical University (METU)',
+    period: '2022 – 2025',
+    summary: [
+      'Thesis: Nonlinear Gear Dynamics',
+      'Research Focus: Dynamics, Control Systems & Modeling',
+      'CGPA: 3.64 / 4.00',
+    ],
   },
   {
     kind: 'education',
-    role: 'B.Sc. in Mechanical / Electrical Engineering',
-    org: 'Placeholder University',
-    period: '2013 — 2017',
-    place: 'Türkiye',
-    summary:
-      'Foundations in dynamics, systems theory, and control, with capstone work in simulation and embedded control.',
-    placeholder: true,
+    role: 'B.Sc. in Mechanical Engineering',
+    org: 'Middle East Technical University (METU)',
+    period: '2016 – 2021',
+    summary: [
+      'High Honors Graduate',
+      'Focus: Mechanical Systems, Dynamics & Control',
+      'CGPA: 3.77 / 4.00',
+    ],
   },
 ];

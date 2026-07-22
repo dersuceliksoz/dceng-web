@@ -1,9 +1,8 @@
 /**
  * Central profile / identity data. The one place to edit personal details.
  *
- * REPLACE-ME markers: items with `placeholder: true` (contacts) and the
- * Tools / Approach / Background copy below are reasonable placeholders for a
- * Systems & Control engineer — swap in Dersu's real details when available.
+ * REPLACE-ME markers: items with `placeholder: true` (contacts) are still
+ * placeholders to be replaced — Tools / Approach / Background below are real.
  */
 
 export interface NavItem {
@@ -26,6 +25,12 @@ export interface ContactChannel {
 export interface CollaborationModel {
   title: string;
   description: string;
+}
+
+export interface EngineeringPrinciple {
+  title: string;
+  tagline: string;
+  items: string[];
 }
 
 export interface ToolGroup {
@@ -74,43 +79,42 @@ export const profile = {
     'Industrial Automation',
   ] as string[],
 
-  /** Background paragraphs (About). REPLACE-ME with real biography. */
+  /** Background paragraphs (About). */
   background: [
-    'Dersu Celiksoz is a systems and control engineer focused on the full lifecycle of control-driven systems — from first-principles modeling and simulation through controller design, real-time implementation, and rigorous verification.',
-    'His work bridges theory and practice: deriving tractable models from complex dynamics, designing controllers that hold up under real-world disturbance and uncertainty, and validating them through structured SIL/HIL pipelines before they reach hardware.',
-    'Alongside engineering practice, he writes and teaches — publishing white papers and engineering notes, and running the Academy to share applied control and modeling knowledge with practising engineers.',
+    'Dersu Celiksoz is a systems and control engineer specializing in complex engineering systems. He collaborates with engineering teams on the development, modeling and validation of control-driven systems across a range of engineering projects.',
+    'His work integrates systems engineering, modeling, control and validation into a single engineering workflow—from concept to validated implementation.',
+    'Alongside engineering projects, he publishes white papers and technical notes to share practical engineering knowledge and contribute to the wider engineering community.',
   ] as string[],
 
-  /** How Dersu thinks as an engineer (About → Approach, the emphasized section). */
+  /** Engineering Principles (About → Approach, the emphasized section). */
   approach: [
     {
-      title: 'Model before code',
-      description:
-        'Every control problem starts as a model. A clear, validated plant model — with explicit assumptions and operating envelopes — makes the controller design honest and the failure modes visible early.',
+      title: 'Model Before Design',
+      tagline: 'Understand first. Model with purpose.',
+      items: ['Systems Thinking', 'Dynamic Modeling', 'Design Exploration'],
     },
     {
-      title: 'Design for the disturbance',
-      description:
-        'Nominal performance is the easy part. Robustness margins, actuator limits, sensor noise, and delay are treated as first-class design inputs, not afterthoughts discovered on the test bench.',
+      title: 'Design for Reality',
+      tagline: 'Expect reality. Engineer accordingly.',
+      items: ['Operating Conditions', 'Fault Handling', 'Robust Design'],
     },
     {
-      title: 'Verify continuously',
-      description:
-        'Requirements, simulation, SIL, and HIL form one traceable chain. Each stage closes the loop on the last, so behaviour on hardware is a confirmation rather than a surprise.',
+      title: 'Validate by Testing',
+      tagline: 'Prototype fast. Validate continuously.',
+      items: ['Rapid Prototyping', 'MIL / SIL / HIL Testing', 'Test Analysis'],
     },
     {
-      title: 'Document to transfer',
-      description:
-        'Engineering value only compounds when it is written down. Decisions, derivations, and trade-offs are documented so they survive the project and teach the next one.',
+      title: 'Preserve Engineering Knowledge',
+      tagline: 'Document once. Reuse often.',
+      items: ['Technical Documentation', 'Knowledge Sharing', 'Technical Publications'],
     },
-  ],
+  ] as EngineeringPrinciple[],
 
-  /** Tools & technologies (About). REPLACE-ME / trim to taste. */
+  /** Tools & technologies (About). */
   tools: [
-    { label: 'Modeling & Control', items: ['MATLAB', 'Simulink', 'Simscape', 'Stateflow', 'Control System Toolbox'] },
-    { label: 'Simulation & Real-Time', items: ['dSPACE', 'Speedgoat / xPC', 'Modelica', 'Python (NumPy / SciPy / control)'] },
-    { label: 'Systems & V&V', items: ['MBSE / SysML', 'Requirements tracing', 'SIL / HIL', 'Test automation'] },
-    { label: 'Languages & Tooling', items: ['C / C++', 'Python', 'MATLAB', 'Git', 'CI pipelines'] },
+    { label: 'Modeling, Control & Simulation', items: ['MATLAB', 'Simulink', 'Simscape & Multibody', 'Stateflow', 'Reduced-Order Modeller'] },
+    { label: 'Real-Time & Testing', items: ['NI LabVIEW', 'NI LabVIEW FPGA', 'NI VeriStand', 'Vector CANoe'] },
+    { label: 'Development & Collaboration', items: ['C / C++', 'Python', 'Jira', 'Git', 'SVN'] },
   ] as ToolGroup[],
 
   /** Collaboration models (Engineering). */

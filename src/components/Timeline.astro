@@ -34,7 +34,9 @@ const kindLabel: Record<TimelineItem['kind'], string> = {
             {item.org}
             {item.place && <span class="muted"> · {item.place}</span>}
           </p>
-          <p class="muted">{item.summary}</p>
+          <ul class="muted timeline__list">
+            {item.summary.map((line) => <li>{line}</li>)}
+          </ul>
         </div>
       </li>
     ))
@@ -92,6 +94,14 @@ const kindLabel: Record<TimelineItem['kind'], string> = {
 
   .timeline__org {
     font-weight: 500;
+  }
+
+  .timeline__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+    padding-left: 1.1em;
+    list-style: disc;
   }
 
   .badge {
