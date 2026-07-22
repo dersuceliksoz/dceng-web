@@ -20,25 +20,25 @@ const focus = [
     eyebrow: '01',
     title: 'System Design',
     graphic: 'nodes' as const,
-    body: 'Framing the problem — requirements, architecture, and the interfaces that hold a control-driven system together.',
+    items: ['Requirements Engineering', 'System Architecture', 'Component Selection', 'Trade-off Analysis'],
   },
   {
     eyebrow: '02',
     title: 'Modeling & Simulation',
     graphic: 'grid-plot' as const,
-    body: 'Turning physics into tractable models and simulators you can design against and trust under test.',
+    items: ['Dynamic System Modeling', 'Multi-Domain Modeling', 'Reduced-Order Modeling', 'Real-Time Simulation'],
   },
   {
     eyebrow: '03',
     title: 'Control Systems',
     graphic: 'control-loop' as const,
-    body: 'Designing controllers and estimators that stay stable and performant under real disturbance and uncertainty.',
+    items: ['Control Algorithms', 'Supervisory Control', 'State Estimation', 'Fault Management'],
   },
   {
     eyebrow: '04',
     title: 'Verification & Validation',
     graphic: 'signal' as const,
-    body: 'Closing the loop from requirements through SIL/HIL, so behaviour on hardware is confirmed — not hoped for.',
+    items: ['Test Planning', 'MIL / SIL / HIL Testing', 'Rapid Prototyping', 'Test Analysis'],
   },
 ];
 ---
@@ -48,7 +48,7 @@ const focus = [
   <section class="hero grid-bg">
     <div class="container hero__inner">
       <div class="hero__text stack">
-        <span class="eyebrow">{profile.role}</span>
+        <span class="eyebrow">{profile.heroEyebrow}</span>
         <h1>{profile.name}</h1>
         <p class="lede">{profile.brandLine}</p>
         <div class="cluster hero__actions">
@@ -86,26 +86,20 @@ const focus = [
     </div>
   </section>
 
-  <!-- Short statement -->
-  <section class="section section--tight statement">
-    <div class="container container--narrow">
-      <p class="statement__text">{profile.shortStatement}</p>
-    </div>
-  </section>
-
   <!-- Technical Focus -->
   <section class="section section--divided">
     <div class="container stack--xl stack">
       <div class="section-head stack">
         <span class="eyebrow">Technical Focus</span>
         <h2>The engineering lifecycle, end to end</h2>
-        <p class="lede">From framing a problem to validating the result on hardware — each stage feeding the next.</p>
       </div>
       <div class="grid">
         {
           focus.map((f) => (
             <TechnicalCard title={f.title} eyebrow={f.eyebrow} graphic={f.graphic}>
-              {f.body}
+              <ul class="tcard__list">
+                {f.items.map((item) => <li>{item}</li>)}
+              </ul>
             </TechnicalCard>
           ))
         }
@@ -201,17 +195,21 @@ const focus = [
     height: 100%;
   }
 
-  /* Short statement */
-  .statement__text {
-    font-size: var(--step-2);
-    line-height: 1.4;
-    text-wrap: balance;
-    color: var(--color-text);
-  }
-
   .section-head {
     max-width: 60ch;
     gap: var(--space-xs);
+  }
+
+  .tcard__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+    padding-left: 1.1em;
+    list-style: disc;
+  }
+  .tcard__list li {
+    font-size: var(--step--1);
+    line-height: 1.5;
   }
 
   /* Split section */

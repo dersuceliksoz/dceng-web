@@ -47,12 +47,13 @@ export const profile = {
   role: 'Systems & Control Engineer',
   /** Small uppercase descriptor shown under the name in the header brand mark. */
   brandDescriptor: 'Engineering Solutions',
+  /** Hero eyebrow label — the engineering discipline/activity area, not a personal job title. */
+  heroEyebrow: 'Systems & Control Engineering',
   brandLine: 'Designing, modeling and validating control-driven engineering systems.',
   /** Footer-only company text — must not appear elsewhere on the site. */
   company: 'DC Engineering Solutions',
   location: 'Ankara, Türkiye',
   email: 'dersuceliksoz@outlook.com',
-  shortStatement: 'Independent engineering, technical publications and knowledge sharing.',
 
   /** Engineering Focus tags (About + Home). */
   focusAreas: [
