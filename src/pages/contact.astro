@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactCard from '../components/ContactCard.astro';
-import Button from '../components/Button.astro';
 import { profile } from '../data/profile';
 ---
 
@@ -10,21 +9,8 @@ import { profile } from '../data/profile';
   <PageHeader
     eyebrow="Contact"
     title="Get in touch"
-    lede="For project work, technical advisory, research, or Academy collaboration — the best way to reach me is below."
+    lede="For engineering projects, technical advisory, research, or academy collaborations, feel free to get in touch."
   />
-
-  <!-- Overview -->
-  <section class="section">
-    <div class="container container--narrow stack--l stack">
-      <p class="readable">
-        I'm happy to discuss control, modeling, and verification work, or speaking and teaching for the Academy.
-        Email is the most reliable channel and I aim to reply within a few working days.
-      </p>
-      <div class="cluster">
-        <Button href={`mailto:${profile.email}`}>Email {profile.name.split(' ')[0]}</Button>
-      </div>
-    </div>
-  </section>
 
   <!-- Contact channels -->
   <section class="section section--divided">
@@ -42,11 +28,6 @@ import { profile } from '../data/profile';
 </Layout>
 
 <style>
-  .readable {
-    font-size: var(--step-1);
-    line-height: 1.6;
-    max-width: 65ch;
-  }
   .contact-grid {
     grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   }

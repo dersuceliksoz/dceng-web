@@ -5,20 +5,12 @@ import PageHeader from '../components/PageHeader.astro';
 import PublicationFilters from '../components/PublicationFilters.astro';
 import PublicationList from '../components/PublicationList.astro';
 import TechnicalCard from '../components/TechnicalCard.astro';
-import TagList from '../components/TagList.astro';
 import { sortPublicationsAll, CATEGORY_LABELS } from '../lib/publications';
 
 const all = sortPublicationsAll(
   await getCollection('publications', ({ data }) => (import.meta.env.PROD ? data.status !== 'draft' : true)),
 );
 const featured = all.filter((p) => p.data.featured).slice(0, 3);
-
-const research = [
-  'Learning-augmented control',
-  'Robust estimation under uncertainty',
-  'Real-time co-simulation',
-  'Automated verification & validation',
-];
 
 const linkFor = (data: (typeof all)[number]['data']) =>
   data.url ?? (data.doi ? `https://doi.org/${data.doi}` : undefined);
@@ -33,16 +25,6 @@ const linkFor = (data: (typeof all)[number]['data']) =>
     title="A technical library"
     lede="White papers, journal and conference articles, patents, and engineering notes — the written record of the engineering work."
   />
-
-  <!-- Overview -->
-  <section class="section">
-    <div class="container container--narrow">
-      <p class="readable">
-        This library collects technical writing across the control and systems-engineering lifecycle. Use the filters to
-        browse by type; the default view lists everything, ordered by category and then by date.
-      </p>
-    </div>
-  </section>
 
   <!-- Featured Work -->
   {
@@ -79,28 +61,7 @@ const linkFor = (data: (typeof all)[number]['data']) =>
     </div>
   </section>
 
-  <!-- Research & Future Work -->
-  <section class="section section--divided">
-    <div class="container container--narrow stack--l stack">
-      <span class="eyebrow">Research & Future Work</span>
-      <p class="readable">
-        Ongoing interests focus on making control systems more robust and easier to validate — combining
-        first-principles models with data, tightening the loop between simulation and hardware, and automating the
-        verification that proves a design is ready.
-      </p>
-      <TagList items={research} label="Research directions" />
-    </div>
-  </section>
-
   <script>
     import '../scripts/filters.ts';
   </script>
 </Layout>
-
-<style>
-  .readable {
-    font-size: var(--step-1);
-    line-height: 1.6;
-    max-width: 65ch;
-  }
-</style>

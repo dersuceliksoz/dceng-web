@@ -16,18 +16,8 @@ const events = prepareEvents(await getCollection('events'));
   <PageHeader
     eyebrow="Academy"
     title="Learn applied control & systems engineering"
-    lede="Webinars, workshops, and courses that turn control and modeling theory into practice for working engineers."
+    lede="Practical engineering education in systems, control, modeling, and verification."
   />
-
-  <!-- Overview -->
-  <section class="section">
-    <div class="container container--narrow">
-      <p class="readable">
-        The Academy is where engineering knowledge is shared in the open — practical sessions on control design,
-        modeling and simulation, and verification, drawn from real project work.
-      </p>
-    </div>
-  </section>
 
   <!-- Events -->
   <section class="section section--divided">
@@ -79,10 +69,10 @@ const events = prepareEvents(await getCollection('events'));
     <div class="container stack--l stack">
       <span class="eyebrow">Courses</span>
       <article class="card courses-soon stack">
-        <h2>Structured courses are on the way</h2>
+        <h2>Structured courses are coming soon</h2>
         <p class="muted">
-          Self-paced courses on control design, state estimation, and model-based verification are in preparation.
-          In the meantime, join an upcoming event above.
+          Self-paced engineering courses covering systems, control, modeling, simulation, and verification are
+          currently in development.
         </p>
         <span class="badge">Coming Soon</span>
       </article>
@@ -95,12 +85,6 @@ const events = prepareEvents(await getCollection('events'));
 </Layout>
 
 <style>
-  .readable {
-    font-size: var(--step-1);
-    line-height: 1.6;
-    max-width: 65ch;
-  }
-
   .event-list {
     display: flex;
     flex-direction: column;

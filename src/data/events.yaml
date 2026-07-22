@@ -24,17 +24,6 @@
     plant models, fault injection, and traceable test reporting.
   placeholder: true
 
-- id: estimation-course-cohort
-  title: "Estimation & Sensor Fusion — Applied Course"
-  type: course
-  date: 2027-01-26
-  location: Online
-  status: upcoming
-  summary: >-
-    A practitioner course on state estimation: Kalman filtering, complementary and
-    nonlinear estimators, and tuning against real sensor data.
-  placeholder: true
-
 - id: simulink-modeling-talk
   title: "Structuring Large Simulink Models for V&V"
   type: talk

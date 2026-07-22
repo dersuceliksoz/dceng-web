@@ -155,12 +155,6 @@ export const profile = {
       placeholder: true,
     },
     {
-      channel: 'scholar',
-      label: 'Google Scholar / ORCID',
-      value: 'Add your researcher profile',
-      placeholder: true,
-    },
-    {
       channel: 'location',
       label: 'Location',
       value: 'Ankara, Türkiye',
