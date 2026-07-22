@@ -275,4 +275,15 @@ const contactLink = NAV.find((item) => item.href === '/contact');
       padding-bottom: var(--space-s);
     }
   }
+
+  /* Between the hamburger breakpoint and full desktop width, the primary
+     nav + CTA can wrap onto a second line inside .site-header__inner.
+     With no block padding on the wrapper, the wrapped lines pack flush
+     against the top/bottom edges. This band adds symmetric breathing
+     room only where that wrapping actually happens. */
+  @media (min-width: 761px) and (max-width: 1023px) {
+    .site-header__inner {
+      padding-block: var(--space-s);
+    }
+  }
 </style>
