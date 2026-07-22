@@ -8,7 +8,14 @@
 import { NAV, profile } from '../data/profile';
 
 const current = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const isActive = (href: string) => current === href.replace(/\/+$/, '');
+const isActive = (href: string) => {
+  const target = href === '/' ? '/' : href.replace(/\/+$/, '');
+  return current === target;
+};
+
+// Contact is rendered as a standalone CTA, not as part of the link list.
+const navLinks = NAV.filter((item) => item.href !== '/contact');
+const contactLink = NAV.find((item) => item.href === '/contact');
 ---
 
 <header class="site-header">
@@ -17,7 +24,7 @@ const isActive = (href: string) => current === href.replace(/\/+$/, '');
       <span class="brand__mark" aria-hidden="true">DC</span>
       <span class="brand__text">
         <span class="brand__name">{profile.name}</span>
-        <span class="brand__role">{profile.role}</span>
+        <span class="brand__descriptor">{profile.brandDescriptor}</span>
       </span>
     </a>
 
@@ -36,7 +43,7 @@ const isActive = (href: string) => current === href.replace(/\/+$/, '');
     <nav class="site-nav" id="primary-nav" data-nav-menu aria-label="Primary">
       <ul class="site-nav__list">
         {
-          NAV.map((item) => (
+          navLinks.map((item) => (
             <li>
               <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
                 {item.label}
@@ -45,6 +52,17 @@ const isActive = (href: string) => current === href.replace(/\/+$/, '');
           ))
         }
       </ul>
+      {
+        contactLink && (
+          <a
+            class="nav-cta"
+            href={contactLink.href}
+            aria-current={isActive(contactLink.href) ? 'page' : undefined}
+          >
+            {contactLink.label}
+          </a>
+        )
+      }
     </nav>
   </div>
 </header>
@@ -97,20 +115,49 @@ const isActive = (href: string) => current === href.replace(/\/+$/, '');
   .brand__text {
     display: flex;
     flex-direction: column;
-    line-height: 1.1;
+    line-height: 1.15;
   }
   .brand__name {
+    font-size: var(--step-1);
     font-weight: 600;
   }
-  .brand__role {
+  .brand__descriptor {
     font-size: var(--step--1);
+    font-weight: 500;
+    letter-spacing: 0.08em;
     color: var(--color-text-muted);
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-l);
   }
 
   .site-nav__list {
     display: flex;
     align-items: center;
     gap: var(--space-l);
+  }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding-inline: var(--space-l);
+    border-radius: 999px;
+    background: var(--color-accent);
+    color: #fff;
+    font-size: var(--step-0);
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color var(--transition);
+  }
+  .nav-cta:hover {
+    background: var(--color-accent-soft);
+    text-decoration: none;
   }
 
   .site-nav a {
@@ -125,6 +172,14 @@ const isActive = (href: string) => current === href.replace(/\/+$/, '');
   .site-nav a[aria-current='page'] {
     color: var(--color-accent);
     font-weight: 600;
+  }
+
+  /* Higher specificity than `.site-nav a` above, which would otherwise
+     override the CTA's white text with the muted/accent link colors. */
+  .site-nav a.nav-cta,
+  .site-nav a.nav-cta:hover,
+  .site-nav a.nav-cta[aria-current='page'] {
+    color: #fff;
   }
 
   /* Hamburger: hidden on desktop; under .no-js it is hidden everywhere
@@ -203,6 +258,10 @@ const isActive = (href: string) => current === href.replace(/\/+$/, '');
       flex-direction: column;
       align-items: flex-start;
       gap: var(--space-xs);
+    }
+
+    .nav-cta {
+      margin-top: var(--space-s);
     }
 
     /* no-JS fallback: nav wraps to a full-width row under the brand. */

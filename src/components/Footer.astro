@@ -12,7 +12,7 @@ const year = new Date().getFullYear();
   <div class="container site-footer__inner">
     <div class="site-footer__brand stack">
       <span class="brand__mark" aria-hidden="true">DC</span>
-      <p class="site-footer__line">{profile.brandLine}</p>
+      <p class="site-footer__name">{profile.name}</p>
       <p class="muted site-footer__company">{profile.company}</p>
     </div>
 
@@ -34,7 +34,6 @@ const year = new Date().getFullYear();
 
   <div class="container site-footer__base">
     <p class="muted">© {year} {profile.name}. All rights reserved.</p>
-    <p class="muted">Built with Astro · Static site</p>
   </div>
 </footer>
 
@@ -70,8 +69,9 @@ const year = new Date().getFullYear();
     border-radius: var(--radius-sm);
   }
 
-  .site-footer__line {
-    font-size: var(--step-0);
+  .site-footer__name {
+    font-size: var(--step-1);
+    font-weight: 600;
   }
 
   .site-footer__company {

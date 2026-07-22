@@ -34,6 +34,7 @@ export interface ToolGroup {
 }
 
 export const NAV: NavItem[] = [
+  { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Engineering', href: '/engineering' },
   { label: 'Publications', href: '/publications' },
@@ -44,11 +45,13 @@ export const NAV: NavItem[] = [
 export const profile = {
   name: 'Dersu Celiksoz',
   role: 'Systems & Control Engineer',
+  /** Small uppercase descriptor shown under the name in the header brand mark. */
+  brandDescriptor: 'Engineering Solutions',
   brandLine: 'Designing, modeling and validating control-driven engineering systems.',
   /** Footer-only company text — must not appear elsewhere on the site. */
   company: 'DC Engineering Solutions',
   location: 'Ankara, Türkiye',
-  email: 'fabena33@gmail.com',
+  email: 'dersuceliksoz@outlook.com',
   shortStatement: 'Independent engineering, technical publications and knowledge sharing.',
 
   /** Engineering Focus tags (About + Home). */
@@ -138,8 +141,8 @@ export const profile = {
     {
       channel: 'email',
       label: 'Email',
-      value: 'fabena33@gmail.com',
-      href: 'mailto:fabena33@gmail.com',
+      value: 'dersuceliksoz@outlook.com',
+      href: 'mailto:dersuceliksoz@outlook.com',
     },
     {
       channel: 'linkedin',
