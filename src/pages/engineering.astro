@@ -7,20 +7,41 @@ import { profile } from '../data/profile';
 
 const capabilities = [
   {
-    title: 'Control Systems',
-    body: 'Feedback and feedforward design, robust and optimal control, gain scheduling, and estimation / sensor fusion.',
+    title: 'System Design & Integration',
+    items: [
+      'Requirements Engineering',
+      'System Architecture',
+      'Component Selection',
+      'Interface Definition',
+      'Communication Architecture',
+      'Trade-off Analysis',
+    ],
   },
   {
     title: 'Modeling & Simulation',
-    body: 'First-principles and data-driven models, parameter identification, and real-time-capable simulators.',
+    items: [
+      'Dynamic System Modeling',
+      'Multi-Domain Simulation',
+      'System Identification',
+      'Reduced-Order Modeling',
+      'Real-Time Simulation',
+      'Driver-in-the-Loop Simulation',
+    ],
   },
   {
-    title: 'Systems Engineering',
-    body: 'Requirements, architecture, interface definition, and model-based systems engineering across the V-cycle.',
+    title: 'Control System Design',
+    items: ['Motion Control', 'Supervisory Control', 'State Machines', 'Energy Management', 'State Estimation', 'Fault Management'],
   },
   {
     title: 'Verification & Validation',
-    body: 'Test design, SIL/HIL benches, fault injection, and traceable verification campaigns up to hardware.',
+    items: [
+      'Test Planning',
+      'Code Generation',
+      'Rapid Prototyping',
+      'MIL / SIL / HIL Testing',
+      'Test Automation',
+      'Test Analysis',
+    ],
   },
 ];
 
@@ -51,27 +72,24 @@ const selectedWork = [
 <Layout title="Engineering" description="Control systems, modeling & simulation, systems engineering, and V&V work.">
   <PageHeader
     eyebrow="Engineering"
-    title="Control-driven systems, from model to hardware"
-    lede="Independent engineering across the full lifecycle — modeling, control design, real-time implementation, and rigorous verification."
+    title="Engineering systems from concept to validation"
+    lede="Independent engineering across systems, control, modeling, and validation."
   />
-
-  <!-- Intro -->
-  <section class="section">
-    <div class="container container--narrow">
-      <p class="readable">
-        Work spans the path a control system takes from concept to confidence: deriving models that are honest about
-        their assumptions, designing controllers that hold up under disturbance and uncertainty, and validating them
-        through structured SIL/HIL pipelines before they reach hardware.
-      </p>
-    </div>
-  </section>
 
   <!-- Capabilities -->
   <section class="section section--divided">
     <div class="container stack--l stack">
       <span class="eyebrow">Capabilities</span>
       <div class="grid">
-        {capabilities.map((c) => <TechnicalCard title={c.title}>{c.body}</TechnicalCard>)}
+        {
+          capabilities.map((c) => (
+            <TechnicalCard title={c.title}>
+              <ul class="cap__list">
+                {c.items.map((item) => <li>{item}</li>)}
+              </ul>
+            </TechnicalCard>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -106,8 +124,8 @@ const selectedWork = [
     <div class="container stack--l stack">
       <div class="section-head stack">
         <span class="eyebrow">Selected Work</span>
-        <h2>Representative projects</h2>
-        <p class="muted">Illustrative examples — technical previews, not photographs.</p>
+        <h2>Featured Projects</h2>
+        <p class="muted">Representative engineering work demonstrating core technical capabilities.</p>
       </div>
       <div class="grid--2">
         {
@@ -125,22 +143,23 @@ const selectedWork = [
   <section class="section section--divided">
     <div class="container container--narrow crosslink">
       <p class="muted">
-        Much of this work is written up in detail — see the
-        <a href="/publications">Publications library</a> for white papers, articles, and engineering notes.
+        Further technical details are available in the <a href="/publications">Publications library</a>.
       </p>
     </div>
   </section>
 </Layout>
 
 <style>
-  .readable {
-    font-size: var(--step-1);
-    line-height: 1.6;
-    max-width: 65ch;
-  }
   .section-head {
     max-width: 60ch;
     gap: var(--space-xs);
+  }
+  .cap__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+    padding-left: 1.1em;
+    list-style: disc;
   }
   .collab {
     gap: var(--space-xs);

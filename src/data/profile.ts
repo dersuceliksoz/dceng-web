@@ -122,22 +122,21 @@ export const profile = {
     {
       title: 'Project Engagements',
       description:
-        'Scoped delivery of a modeling, control-design, or validation work package — from problem framing to documented, reproducible results.',
+        'Independent engineering support for system design, modeling, control development, and validation—from concept development to documented delivery.',
     },
     {
       title: 'Technical Advisory',
       description:
-        'Design reviews, architecture and robustness assessments, and second-opinion analysis on control and systems-engineering decisions.',
+        'Architecture reviews, design assessments, control strategy evaluation, and technical decision support for engineering teams.',
     },
     {
       title: 'Research & Writing',
-      description:
-        'Applied investigation of a control or modeling question, written up as a white paper, engineering note, or internal reference.',
+      description: 'White papers, technical notes, engineering research, and application-focused technical documentation.',
     },
     {
       title: 'Education & Training',
       description:
-        'Webinars, courses, and workshops through the Academy — practical control and modeling knowledge for working engineers.',
+        'Workshops, webinars, and practical engineering training in systems, control, modeling, and verification.',
     },
   ] as CollaborationModel[],
 
