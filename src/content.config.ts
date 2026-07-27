@@ -21,6 +21,11 @@ const publications = defineCollection({
     url: z.string().url().optional(),
     graphic: z.enum(['control-loop', 'grid-plot', 'signal', 'nodes']).default('grid-plot'),
     featured: z.boolean().default(false),
+    /** Explicit pin for the Home page's "Latest Publication" card — independent of `featured`. */
+    homeFeatured: z.boolean().default(false),
+    /** Optional shortened title/summary for the Home card only; full `title`/`summary` stay unchanged elsewhere. */
+    homeTitle: z.string().optional(),
+    homeSummary: z.string().optional(),
     status: z.enum(['published', 'draft', 'placeholder']).default('published'),
     tags: z.array(z.string()).default([]),
   }),
@@ -31,7 +36,7 @@ const events = defineCollection({
   loader: file('src/data/events.yaml'),
   schema: z.object({
     title: z.string(),
-    type: z.enum(['webinar', 'course', 'talk', 'workshop']),
+    type: z.enum(['webinar', 'course', 'talk', 'workshop', 'engineering-talk']),
     date: z.coerce.date(),
     location: z.string().default('Online'),
     status: z.enum(['upcoming', 'past']),

@@ -14,6 +14,7 @@ export const EVENT_TYPE_LABELS: Record<EventEntry['data']['type'], string> = {
   course: 'Course',
   talk: 'Talk',
   workshop: 'Workshop',
+  'engineering-talk': 'Engineering Talk',
 };
 
 /**

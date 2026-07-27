@@ -24,6 +24,15 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   'engineering-note': 'Engineering Notes',
 };
 
+/** Singular form, for badges that describe a single publication (e.g. the Home card). */
+export const CATEGORY_LABELS_SINGULAR: Record<Category, string> = {
+  'white-paper': 'White Paper',
+  journal: 'Journal Article',
+  conference: 'Conference Paper',
+  patent: 'Patent',
+  'engineering-note': 'Engineering Note',
+};
+
 /** Filter chips for the Publication Library, in display order. */
 export const PUBLICATION_FILTERS: Array<{ value: string; label: string }> = [
   { value: 'all', label: 'All' },
@@ -47,4 +56,15 @@ export function sortPublicationsAll(items: Publication[]): Publication[] {
 /** Shared date formatter for list rows / cards. */
 export function formatPubDate(date: Date): string {
   return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+}
+
+/**
+ * Home page's "Latest Publication" pick: prefer the explicitly pinned
+ * `homeFeatured` entry; otherwise fall back to the newest by date (the
+ * pre-existing automatic behaviour), so pages with no pin keep working.
+ */
+export function selectHomeFeatured(items: Publication[]): Publication | undefined {
+  const pinned = items.find((p) => p.data.homeFeatured);
+  if (pinned) return pinned;
+  return [...items].sort((a, b) => b.data.date.getTime() - a.data.date.getTime())[0];
 }

@@ -4,13 +4,16 @@ import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import TechnicalCard from '../components/TechnicalCard.astro';
 import { profile } from '../data/profile';
-import { sortPublicationsAll, formatPubDate, CATEGORY_LABELS } from '../lib/publications';
+import { sortPublicationsAll, selectHomeFeatured, CATEGORY_LABELS_SINGULAR } from '../lib/publications';
 import { prepareEvents, formatEventDate, EVENT_TYPE_LABELS } from '../lib/events';
 
 const pubs = sortPublicationsAll(
   await getCollection('publications', ({ data }) => (import.meta.env.PROD ? data.status !== 'draft' : true)),
 );
-const latest = [...pubs].sort((a, b) => b.data.date.getTime() - a.data.date.getTime())[0];
+const latest = selectHomeFeatured(pubs);
+const latestHref = latest && (latest.data.url ?? (latest.data.doi ? `https://doi.org/${latest.data.doi}` : undefined));
+const latestTitle = latest && (latest.data.homeTitle ?? latest.data.title);
+const latestSummary = latest && (latest.data.homeSummary ?? latest.data.summary);
 
 const events = prepareEvents(await getCollection('events'));
 const upcoming = events.filter((e) => e.when === 'upcoming').slice(0, 3);
@@ -117,14 +120,25 @@ const focus = [
             latest ? (
               <article class="card stack feature">
                 <div class="cluster feature__meta">
-                  <span class="feature__cat">{CATEGORY_LABELS[latest.data.category]}</span>
-                  <time datetime={latest.data.date.toISOString().slice(0, 10)} class="muted">
-                    {formatPubDate(latest.data.date)}
-                  </time>
+                  <span class="feature__cat">{CATEGORY_LABELS_SINGULAR[latest.data.category]}</span>
                 </div>
-                <h3>{latest.data.title}</h3>
-                <p class="muted">{latest.data.summary}</p>
-                <Button href="/publications" variant="ghost">View the library →</Button>
+                <h3>
+                  {latestHref ? (
+                    <a href={latestHref} target="_blank" rel="noopener noreferrer" class="feature__link">
+                      {latestTitle}
+                    </a>
+                  ) : (
+                    latestTitle
+                  )}
+                </h3>
+                <p class="muted">{latestSummary}</p>
+                {
+                  latestHref && (
+                    <Button href={latestHref} target="_blank" rel="noopener noreferrer" variant="ghost">
+                      Read the paper →
+                    </Button>
+                  )
+                }
               </article>
             ) : (
               <p class="muted">No publications yet.</p>
@@ -142,7 +156,9 @@ const focus = [
                     <time datetime={entry.data.date.toISOString().slice(0, 10)} class="activity__date">
                       {formatEventDate(entry.data.date)}
                     </time>
-                    <p class="activity__title">{entry.data.title}</p>
+                    <p class="activity__title">
+                      <a href="/academy" class="activity__link">{entry.data.title}</a>
+                    </p>
                     <p class="muted activity__meta">
                       {EVENT_TYPE_LABELS[entry.data.type]} · {entry.data.location}
                     </p>
@@ -225,11 +241,19 @@ const focus = [
   .feature__meta {
     justify-content: space-between;
   }
+  .feature__link {
+    color: inherit;
+  }
+  .feature__link:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
 
   .activities {
     gap: var(--space-m);
   }
   .activity {
+    position: relative;
     padding-bottom: var(--space-m);
     border-bottom: 1px solid var(--color-border);
   }
@@ -241,6 +265,18 @@ const focus = [
   .activity__title {
     font-weight: 600;
     margin-top: 0.15rem;
+  }
+  .activity__link {
+    color: inherit;
+  }
+  .activity__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .activity__link:hover {
+    color: var(--color-accent);
+    text-decoration: none;
   }
   .activity__meta {
     font-size: var(--step--1);

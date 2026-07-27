@@ -1,27 +1,28 @@
 # Academy events. Single YAML array loaded by file() — each entry needs a unique `id`.
 # `status` is authored, but Upcoming/Past is (re)classified at build time from `date`.
-# All entries are placeholders (placeholder: true) — replace with real events.
+# Entries with `placeholder: true` are still placeholders to be replaced with real events.
+
+- id: ai-estimation-engineering-talk
+  title: "AI-Enabled Estimation for Embedded Control Systems"
+  type: engineering-talk
+  date: 2026-09-17
+  location: Online
+  status: upcoming
+  summary: >-
+    A practical engineering talk on how artificial intelligence and data-driven reduced-order
+    models can support embedded control systems. Topics include replacing selected physical
+    sensors with learned estimators, reducing model and hardware complexity, and integrating
+    data-driven estimation into real-time control architectures.
 
 - id: control-design-webinar
   title: "Practical Control Design: From Model to Hardware"
   type: webinar
-  date: 2026-09-17
+  date: 2026-10-29
   location: Online
   status: upcoming
   summary: >-
     A walkthrough of taking a plant model to a deployed controller — design choices,
     robustness margins, and the SIL/HIL checks that catch problems before hardware.
-  placeholder: true
-
-- id: hil-validation-workshop
-  title: "Hands-on HIL Validation Workshop"
-  type: workshop
-  date: 2026-10-29
-  location: Ankara, Türkiye
-  status: upcoming
-  summary: >-
-    Building a hardware-in-the-loop test bench end to end: signal interfaces, real-time
-    plant models, fault injection, and traceable test reporting.
   placeholder: true
 
 - id: simulink-modeling-talk
