@@ -4,7 +4,7 @@
  * site tokens. No raster images. Decorative by default; pass a `title` to expose
  * it as an image to assistive tech.
  */
-type Variant = 'control-loop' | 'grid-plot' | 'signal' | 'nodes';
+type Variant = 'control-loop' | 'grid-plot' | 'signal' | 'nodes' | 'hierarchy' | 'verification';
 
 interface Props {
   variant?: Variant;
@@ -19,6 +19,8 @@ const titles: Record<Variant, string> = {
   'grid-plot': 'Step-response plot on a technical grid',
   signal: 'Stacked signal traces',
   nodes: 'System node graph',
+  hierarchy: 'Requirements document flowing into a system hierarchy diagram',
+  verification: 'Checklist flowing into a monitored, inspected waveform',
 };
 const label = title ?? titles[variant];
 ---
@@ -35,12 +37,9 @@ const label = title ?? titles[variant];
     {
       variant === 'control-loop' && (
         <g>
-          <text class="lbl" x="20" y="86">r</text>
           <line class="ln" x1="22" y1="90" x2="60" y2="90" />
           <polygon class="ah" points="60,90 53,86 53,94" />
           <circle class="node" cx="70" cy="90" r="9" />
-          <text class="sign" x="62" y="84">+</text>
-          <text class="sign" x="63" y="108">−</text>
           <line class="ln" x1="79" y1="90" x2="106" y2="90" />
           <polygon class="ah" points="106,90 99,86 99,94" />
           <rect class="blk" x="106" y="72" width="52" height="36" rx="3" />
@@ -51,7 +50,6 @@ const label = title ?? titles[variant];
           <text class="lbl" x="222" y="95" text-anchor="middle">P(s)</text>
           <line class="ln" x1="248" y1="90" x2="300" y2="90" />
           <polygon class="ah" points="300,90 293,86 293,94" />
-          <text class="lbl" x="305" y="86">y</text>
           <circle class="dot" cx="272" cy="90" r="2.6" />
           <path class="ln" d="M272 90 L272 150 L70 150 L70 99" fill="none" />
           <polygon class="ah" points="70,99 66,106 74,106" />
@@ -110,6 +108,62 @@ const label = title ?? titles[variant];
           <circle class="dot-lg" cx="200" cy="120" r="7" />
           <circle class="node" cx="260" cy="80" r="6" />
           <circle class="node" cx="250" cy="145" r="6" />
+        </g>
+      )
+    }
+
+    {
+      variant === 'hierarchy' && (
+        <g transform="translate(9, 0)">
+          <path class="blk" d="M20 74 L52 74 L64 86 L64 130 L20 130 Z" />
+          <path class="ln" d="M52 74 L52 86 L64 86" fill="none" />
+          <line class="ln" x1="30" y1="96" x2="54" y2="96" />
+          <line class="ln" x1="30" y1="105" x2="54" y2="105" />
+          <line class="ln" x1="30" y1="114" x2="54" y2="114" />
+          <line class="ln" x1="30" y1="123" x2="44" y2="123" />
+
+          <line class="ln" x1="64" y1="102" x2="100" y2="102" />
+          <polygon class="ah" points="100,102 93,98 93,106" />
+
+          <rect class="ln" x="108" y="58" width="174" height="104" rx="4" fill="none" />
+          <rect class="blk" x="168" y="70" width="52" height="26" rx="3" />
+          <line class="ln" x1="194" y1="96" x2="194" y2="112" />
+          <line class="ln" x1="140" y1="112" x2="248" y2="112" />
+          <line class="ln" x1="140" y1="112" x2="140" y2="124" />
+          <line class="ln" x1="194" y1="112" x2="194" y2="124" />
+          <line class="ln" x1="248" y1="112" x2="248" y2="124" />
+          <rect class="blk" x="118" y="124" width="44" height="26" rx="3" />
+          <rect class="blk" x="172" y="124" width="44" height="26" rx="3" />
+          <rect class="blk" x="226" y="124" width="44" height="26" rx="3" />
+        </g>
+      )
+    }
+
+    {
+      variant === 'verification' && (
+        <g transform="translate(20, 0)">
+          <rect class="blk" x="20" y="56" width="50" height="84" rx="3" />
+          <rect class="blk" x="35" y="50" width="20" height="10" rx="2" />
+          <rect class="node" x="28" y="72" width="10" height="10" rx="1" />
+          <path class="ln" d="M30 77 L33 80 L38 73" fill="none" />
+          <line class="ln" x1="44" y1="77" x2="62" y2="77" />
+          <rect class="node" x="28" y="96" width="10" height="10" rx="1" />
+          <path class="ln" d="M30 101 L33 104 L38 97" fill="none" />
+          <line class="ln" x1="44" y1="101" x2="62" y2="101" />
+          <rect class="node" x="28" y="120" width="10" height="10" rx="1" />
+          <path class="ln" d="M30 125 L33 128 L38 121" fill="none" />
+          <line class="ln" x1="44" y1="125" x2="62" y2="125" />
+
+          <line class="ln" x1="70" y1="98" x2="106" y2="98" />
+          <polygon class="ah" points="106,98 99,94 99,102" />
+
+          <rect class="blk" x="116" y="60" width="124" height="78" rx="3" />
+          <path class="curve" fill="none" d="M126 120 C 142 120, 150 74, 166 84 S 206 92, 230 90" />
+          <rect class="blk" x="168" y="138" width="20" height="10" />
+          <line class="ln" x1="150" y1="150" x2="206" y2="150" />
+
+          <circle class="node" cx="238" cy="126" r="13" />
+          <line class="ln" x1="247.2" y1="135.2" x2="260" y2="148" />
         </g>
       )
     }
@@ -180,10 +234,5 @@ const label = title ?? titles[variant];
     fill: var(--color-text-muted);
     font-family: var(--font-mono);
     font-size: 11px;
-  }
-  .sign {
-    fill: var(--color-text-muted);
-    font-family: var(--font-mono);
-    font-size: 9px;
   }
 </style>
