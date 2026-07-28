@@ -27,7 +27,6 @@ export const experience: TimelineItem[] = [
     summary: [
       'Independent engineering services in systems & control engineering',
       'Modeling & simulation, verification & validation, and technical consulting',
-      'Technical publications, patents, and engineering knowledge sharing',
     ],
   },
   {
@@ -60,7 +59,7 @@ export const experience: TimelineItem[] = [
     period: '2022 – 2025',
     summary: [
       'Thesis: Nonlinear Gear Dynamics',
-      'Research Focus: Dynamics, Control Systems & Modeling',
+      'Focus: Dynamics, Modeling & Control Systems',
       'CGPA: 3.64 / 4.00',
     ],
   },
@@ -71,7 +70,6 @@ export const experience: TimelineItem[] = [
     period: '2016 – 2021',
     summary: [
       'High Honors Graduate',
-      'Focus: Mechanical Systems, Dynamics & Control',
       'CGPA: 3.77 / 4.00',
     ],
   },

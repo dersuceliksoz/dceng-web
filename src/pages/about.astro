@@ -14,8 +14,9 @@ const education = experience.filter((e) => e.kind === 'education');
 <Layout title="About" description={`About ${profile.name}, ${profile.role}.`}>
   <PageHeader
     eyebrow="About"
-    title="Engineering Practice"
-    lede="Applying systems thinking to the design, modeling and validation of engineering systems."
+    title="Engineering Profile"
+    lede="Independent systems and control engineering"
+    photo="/images/about-hero-background.webp"
   />
 
   <!-- Background -->
@@ -23,14 +24,6 @@ const education = experience.filter((e) => e.kind === 'education');
     <div class="container container--narrow stack--l stack">
       <span class="eyebrow">Background</span>
       {profile.background.map((p) => <p class="readable">{p}</p>)}
-    </div>
-  </section>
-
-  <!-- Engineering Focus -->
-  <section class="section section--divided">
-    <div class="container stack--l stack">
-      <span class="eyebrow">Engineering Focus</span>
-      <TagList items={profile.focusAreas} label="Engineering focus areas" />
     </div>
   </section>
 

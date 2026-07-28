@@ -60,16 +60,6 @@ export const profile = {
   location: 'Ankara, Türkiye',
   email: 'dersuceliksoz@outlook.com',
 
-  /** Engineering Focus tags (About + Home). */
-  focusAreas: [
-    'Control Systems',
-    'Modeling & Simulation',
-    'Systems Engineering',
-    'Verification & Validation',
-    'Real-Time Systems',
-    'Estimation & Sensor Fusion',
-  ] as string[],
-
   /** Application domains (Engineering page). */
   domains: [
     'Automotive & Vehicle Dynamics',
@@ -81,9 +71,8 @@ export const profile = {
 
   /** Background paragraphs (About). */
   background: [
-    'Dersu Celiksoz is a systems and control engineer specializing in complex engineering systems. He collaborates with engineering teams on the development, modeling and validation of control-driven systems across a range of engineering projects.',
-    'His work integrates systems engineering, modeling, control and validation into a single engineering workflow—from concept to validated implementation.',
-    'Alongside engineering projects, he publishes white papers and technical notes to share practical engineering knowledge and contribute to the wider engineering community.',
+    'Dersu Celiksoz is an independent systems and control engineer specializing in complex engineering systems. Through DC Engineering Solutions, he collaborates with engineering teams and industry partners to develop, model, and validate control-driven systems across a wide range of engineering projects.',
+    'His work brings together systems thinking, modeling, control design, and verification into a single engineering workflow—from concept to validated implementation.',
   ] as string[],
 
   /** Engineering Principles (About → Approach, the emphasized section). */
@@ -114,7 +103,7 @@ export const profile = {
   tools: [
     { label: 'Modeling, Control & Simulation', items: ['MATLAB', 'Simulink', 'Simscape & Multibody', 'Stateflow', 'Reduced-Order Modeller'] },
     { label: 'Real-Time & Testing', items: ['NI LabVIEW', 'NI LabVIEW FPGA', 'NI VeriStand', 'Vector CANoe'] },
-    { label: 'Development & Collaboration', items: ['C / C++', 'Python', 'Jira', 'Git', 'SVN'] },
+    { label: 'Development & Collaboration', items: ['C / C++', 'Python', 'Jira', 'Git', 'SVN', 'SolidWorks', 'CATIA'] },
   ] as ToolGroup[],
 
   /** Collaboration models (Engineering). */

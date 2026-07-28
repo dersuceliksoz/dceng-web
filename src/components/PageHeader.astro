@@ -2,18 +2,26 @@
 /**
  * Page-level header: eyebrow label, the page h1, and an optional lede.
  * One <h1> per page lives here. Extra content (e.g. buttons) goes in the slot.
+ *
+ * `photo` is opt-in: when passed, it layers a subtle background photo behind
+ * the header using the same treatment as the Home hero (content > white
+ * overlay > grid-bg's shared grid texture > photo). Pages that don't pass it
+ * render exactly as before — the shared .grid-bg rule itself is never touched.
  */
 interface Props {
   eyebrow?: string;
   title: string;
   lede?: string;
+  photo?: string;
   class?: string;
 }
 
-const { eyebrow, title, lede, class: className } = Astro.props;
+const { eyebrow, title, lede, photo, class: className } = Astro.props;
 ---
 
-<header class:list={['page-header grid-bg', className]}>
+<header class:list={['page-header grid-bg', { 'page-header--photo': photo }, className]}>
+  {photo && <div class="page-header__photo" style={`background-image: url(${photo})`} aria-hidden="true" />}
+  {photo && <div class="page-header__overlay" aria-hidden="true" />}
   <div class="container container--narrow stack">
     {eyebrow && <span class="eyebrow">{eyebrow}</span>}
     <h1>{title}</h1>
@@ -30,6 +38,33 @@ const { eyebrow, title, lede, class: className } = Astro.props;
 
   .page-header .container {
     margin-inline: auto;
+  }
+
+  .page-header--photo .container {
+    position: relative;
+    z-index: 1;
+  }
+  .page-header__photo {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px);
+    pointer-events: none;
+  }
+  .page-header__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(255, 255, 255, 0.8) 45%,
+      rgba(255, 255, 255, 0.88) 70%,
+      rgba(255, 255, 255, 1) 100%
+    );
+    pointer-events: none;
   }
 
   @media (max-width: 760px) {
