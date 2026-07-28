@@ -49,6 +49,8 @@ const focus = [
 <Layout>
   <!-- Hero -->
   <section class="hero grid-bg">
+    <div class="hero__photo" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
     <div class="container hero__inner">
       <div class="hero__text stack">
         <span class="eyebrow">{profile.heroEyebrow}</span>
@@ -58,32 +60,6 @@ const focus = [
           <Button href="/engineering">Engineering</Button>
           <Button href="/publications" variant="secondary">Publications</Button>
           <Button href="/academy" variant="secondary">Academy</Button>
-        </div>
-      </div>
-
-      <div class="hero__media">
-        {/* Replace with a real portrait: drop an <img> inside .hero__portrait. */}
-        <div class="hero__portrait" role="img" aria-label={`${profile.name} — portrait placeholder`}>
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <clipPath id="portraitClip"><circle cx="100" cy="100" r="96" /></clipPath>
-            </defs>
-            <g clip-path="url(#portraitClip)">
-              <rect width="200" height="200" fill="var(--color-surface-2)" />
-              <g stroke="var(--color-border)" stroke-width="1">
-                <line x1="0" y1="50" x2="200" y2="50" />
-                <line x1="0" y1="100" x2="200" y2="100" />
-                <line x1="0" y1="150" x2="200" y2="150" />
-                <line x1="50" y1="0" x2="50" y2="200" />
-                <line x1="100" y1="0" x2="100" y2="200" />
-                <line x1="150" y1="0" x2="150" y2="200" />
-              </g>
-              <circle cx="100" cy="100" r="62" fill="none" stroke="var(--color-accent-soft)" stroke-width="1.25" />
-              <circle cx="100" cy="100" r="40" fill="none" stroke="var(--color-accent-soft)" stroke-width="1.25" stroke-dasharray="3 4" />
-              <text x="100" y="114" text-anchor="middle" font-family="var(--font-sans)" font-size="46" font-weight="600" fill="var(--color-accent)">DC</text>
-            </g>
-            <circle cx="100" cy="100" r="96" fill="none" stroke="var(--color-border)" stroke-width="2" />
-          </svg>
         </div>
       </div>
     </div>
@@ -182,11 +158,26 @@ const focus = [
     padding-block: var(--space-3xl) var(--space-2xl);
     border-bottom: 1px solid var(--color-border);
   }
+  .hero__photo {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-image: url('/images/hero-background.webp');
+    background-size: cover;
+    background-position: center 35%;
+    filter: blur(2px);
+    pointer-events: none;
+  }
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: rgba(255, 255, 255, 0.82);
+    pointer-events: none;
+  }
   .hero__inner {
-    display: grid;
-    grid-template-columns: 1.4fr 0.6fr;
-    gap: var(--space-2xl);
-    align-items: center;
+    position: relative;
+    z-index: 1;
   }
   .hero__text {
     gap: var(--space-m);
@@ -197,18 +188,6 @@ const focus = [
   .hero__actions {
     margin-top: var(--space-s);
     gap: var(--space-s);
-  }
-  .hero__media {
-    display: flex;
-    justify-content: center;
-  }
-  .hero__portrait {
-    width: min(280px, 70vw);
-    aspect-ratio: 1;
-  }
-  .hero__portrait svg {
-    width: 100%;
-    height: 100%;
   }
 
   .section-head {
@@ -286,13 +265,11 @@ const focus = [
     .hero {
       padding-block: var(--space-xl);
     }
-    .hero__inner {
-      grid-template-columns: 1fr;
-      gap: var(--space-l);
-      text-align: center;
+    .hero__photo {
+      background-position: 65% 30%;
     }
-    .hero__media {
-      order: -1;
+    .hero__text {
+      text-align: center;
     }
     .hero__actions {
       justify-content: center;
