@@ -40,6 +40,9 @@ const { eyebrow, title, lede, photo, class: className } = Astro.props;
     margin-inline: auto;
   }
 
+  .page-header--photo {
+    padding-block: calc(var(--space-2xl) * 1.25) calc(var(--space-xl) * 1.25);
+  }
   .page-header--photo .container {
     position: relative;
     z-index: 1;
@@ -70,6 +73,9 @@ const { eyebrow, title, lede, photo, class: className } = Astro.props;
   @media (max-width: 760px) {
     .page-header {
       padding-block: var(--space-xl) var(--space-l);
+    }
+    .page-header--photo {
+      padding-block: calc(var(--space-xl) * 1.25) calc(var(--space-l) * 1.25);
     }
   }
 </style>
