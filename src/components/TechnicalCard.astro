@@ -6,7 +6,17 @@
  */
 import PreviewGraphic from './PreviewGraphic.astro';
 
-type GraphicVariant = 'control-loop' | 'grid-plot' | 'signal' | 'nodes' | 'hierarchy' | 'verification';
+type GraphicVariant =
+  | 'control-loop'
+  | 'grid-plot'
+  | 'signal'
+  | 'nodes'
+  | 'hierarchy'
+  | 'verification'
+  | 'uav-gimbal'
+  | 'hybrid-energy'
+  | 'driver-in-loop'
+  | 'virtual-sensor';
 
 interface Props {
   title: string;

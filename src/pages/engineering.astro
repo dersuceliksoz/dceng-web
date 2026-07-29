@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import TechnicalCard from '../components/TechnicalCard.astro';
 import TagList from '../components/TagList.astro';
+import CollabIcon from '../components/CollabIcon.astro';
 import { profile } from '../data/profile';
 
 const capabilities = [
@@ -47,24 +48,24 @@ const capabilities = [
 
 const selectedWork = [
   {
-    title: 'Control-Oriented Vehicle Dynamics Modeling',
-    graphic: 'grid-plot' as const,
-    body: 'Reduced-order vehicle models tuned for controller design — capturing the dynamics that matter within bandwidth.',
+    title: 'UAV Gimbal Design & Stabilization',
+    graphic: 'uav-gimbal' as const,
+    body: 'Mechanical design and control system development for a three-axis UAV gimbal, including target tracking and model-based validation in Simulink.',
   },
   {
-    title: 'Real-Time Simulator Development',
-    graphic: 'signal' as const,
-    body: 'Deterministic, real-time plant simulators for closed-loop testing under hard timing constraints.',
+    title: 'Hybrid Vehicle Control System Design',
+    graphic: 'hybrid-energy' as const,
+    body: 'Motion control and energy management system development for a series-hybrid vehicle platform using model-based design.',
   },
   {
-    title: 'Gimbal Stabilization Control Design',
-    graphic: 'control-loop' as const,
-    body: 'Multi-axis stabilization loops designed for disturbance rejection and robustness to payload variation.',
+    title: 'Driver-in-the-Loop Vehicle Simulator',
+    graphic: 'driver-in-loop' as const,
+    body: 'Real-time simulator featuring a nonlinear off-road vehicle dynamics model for controller development and HIL validation.',
   },
   {
-    title: 'SIL/HIL Validation Framework Development',
-    graphic: 'nodes' as const,
-    body: 'A traceable validation framework linking requirements to SIL and HIL tests with automated reporting.',
+    title: 'AI-Based Virtual Sensor Development',
+    graphic: 'virtual-sensor' as const,
+    body: 'Reduced-order fluid modeling and AI-based virtual sensors for real-time applications.',
   },
 ];
 ---
@@ -74,6 +75,7 @@ const selectedWork = [
     eyebrow="Engineering"
     title="Engineering systems from concept to validation"
     lede="Independent engineering across systems, control, modeling, and validation."
+    photo="/images/engineering-hero-background.webp"
   />
 
   <!-- Capabilities -->
@@ -110,8 +112,10 @@ const selectedWork = [
         {
           profile.collaboration.map((c) => (
             <article class="card stack collab">
+              <div class="collab__icon-tile">
+                <CollabIcon variant={c.graphic as 'gear' | 'review' | 'chart' | 'book'} />
+              </div>
               <h3>{c.title}</h3>
-              <p class="muted">{c.description}</p>
             </article>
           ))
         }
@@ -125,7 +129,7 @@ const selectedWork = [
       <div class="section-head stack">
         <span class="eyebrow">Selected Work</span>
         <h2>Featured Projects</h2>
-        <p class="muted">Representative engineering work demonstrating core technical capabilities.</p>
+        <p class="muted">Selected engineering work demonstrating core technical capabilities.</p>
       </div>
       <div class="grid--2">
         {
@@ -139,11 +143,11 @@ const selectedWork = [
     </div>
   </section>
 
-  <!-- Cross-link to Publications -->
+  <!-- Cross-link to Contact -->
   <section class="section section--divided">
     <div class="container container--narrow crosslink">
       <p class="muted">
-        Further technical details are available in the <a href="/publications">Publications library</a>.
+        Further technical information is available <a href="/contact">upon request</a>.
       </p>
     </div>
   </section>
@@ -162,10 +166,22 @@ const selectedWork = [
     list-style: disc;
   }
   .collab {
-    gap: var(--space-xs);
+    align-items: center;
+    gap: var(--space-s);
+    text-align: center;
   }
   .collab h3 {
     font-size: var(--step-1);
+  }
+  .collab__icon-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: var(--border-hairline);
+    background: var(--color-surface-2);
   }
   .crosslink {
     padding-top: var(--space-m);

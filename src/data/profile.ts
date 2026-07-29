@@ -25,6 +25,8 @@ export interface ContactChannel {
 export interface CollaborationModel {
   title: string;
   description: string;
+  /** PreviewGraphic variant name shown as this card's centered illustration. */
+  graphic: string;
 }
 
 export interface EngineeringPrinciple {
@@ -112,20 +114,24 @@ export const profile = {
       title: 'Project Engagements',
       description:
         'Independent engineering support for system design, modeling, control development, and validation—from concept development to documented delivery.',
+      graphic: 'gear',
     },
     {
       title: 'Technical Advisory',
       description:
         'Architecture reviews, design assessments, control strategy evaluation, and technical decision support for engineering teams.',
+      graphic: 'review',
     },
     {
-      title: 'Research & Writing',
+      title: 'Research & Reporting',
       description: 'White papers, technical notes, engineering research, and application-focused technical documentation.',
+      graphic: 'chart',
     },
     {
       title: 'Education & Training',
       description:
         'Workshops, webinars, and practical engineering training in systems, control, modeling, and verification.',
+      graphic: 'book',
     },
   ] as CollaborationModel[],
 
