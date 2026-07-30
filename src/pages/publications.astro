@@ -23,7 +23,8 @@ const linkFor = (data: (typeof all)[number]['data']) =>
   <PageHeader
     eyebrow="Publications"
     title="A technical library"
-    lede="White papers, journal and conference articles, patents, and engineering notes — the written record of the engineering work."
+    lede="Journal articles and technical papers, patents, and engineering notes — the written record of the engineering work."
+    photo="/images/publications-hero-background.webp"
   />
 
   <!-- Featured Work -->
@@ -61,7 +62,41 @@ const linkFor = (data: (typeof all)[number]['data']) =>
     </div>
   </section>
 
+  <!-- White Papers & Engineering Notes -->
+  <section class="section section--divided">
+    <div class="container stack--l stack">
+      <span class="eyebrow">White Papers & Engineering Notes</span>
+      <article class="card pubs-soon stack">
+        <h2>White papers and engineering notes are coming soon</h2>
+        <p class="muted">
+          In-depth white papers and applied engineering notes are currently in preparation and will be added to
+          the library soon.
+        </p>
+        <span class="badge">Coming Soon</span>
+      </article>
+    </div>
+  </section>
+
   <script>
     import '../scripts/filters.ts';
   </script>
 </Layout>
+
+<style>
+  .pubs-soon {
+    gap: var(--space-s);
+    align-items: flex-start;
+    max-width: 60ch;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.1rem 0.45rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    background: var(--color-surface-2);
+  }
+</style>

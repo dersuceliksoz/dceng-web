@@ -57,7 +57,6 @@ function linkFor(data: CollectionEntry<'publications'>['data']): string | undefi
             <p class="pub-row__meta muted">
               {data.authors.join(', ')}
               {data.venue && <span> · {data.venue}</span>}
-              {data.doi && <span> · doi:{data.doi}</span>}
             </p>
             <p class="pub-row__summary muted">{data.summary}</p>
             {data.tags.length > 0 && <TagList items={data.tags} label={`Tags for ${data.title}`} />}
