@@ -6,6 +6,7 @@ import TechnicalCard from '../components/TechnicalCard.astro';
 import { profile } from '../data/profile';
 import { sortPublicationsAll, selectHomeFeatured, CATEGORY_LABELS_SINGULAR } from '../lib/publications';
 import { prepareEvents, formatEventDate, EVENT_TYPE_LABELS } from '../lib/events';
+import { withBase } from '../lib/url';
 
 const pubs = sortPublicationsAll(
   await getCollection('publications', ({ data }) => (import.meta.env.PROD ? data.status !== 'draft' : true)),
@@ -49,7 +50,11 @@ const focus = [
 <Layout>
   <!-- Hero -->
   <section class="hero grid-bg">
-    <div class="hero__photo" aria-hidden="true"></div>
+    <div
+      class="hero__photo"
+      style={`background-image: url(${withBase('/images/hero-background.webp')})`}
+      aria-hidden="true"
+    ></div>
     <div class="hero__overlay" aria-hidden="true"></div>
     <div class="container hero__inner">
       <div class="hero__text stack">
@@ -57,9 +62,9 @@ const focus = [
         <h1>{profile.name}</h1>
         <p class="lede">{profile.brandLine}</p>
         <div class="cluster hero__actions">
-          <Button href="/engineering">Engineering</Button>
-          <Button href="/publications" variant="secondary">Publications</Button>
-          <Button href="/academy" variant="secondary">Academy</Button>
+          <Button href={withBase('/engineering')}>Engineering</Button>
+          <Button href={withBase('/publications')} variant="secondary">Publications</Button>
+          <Button href={withBase('/academy')} variant="secondary">Academy</Button>
         </div>
       </div>
     </div>
@@ -133,7 +138,7 @@ const focus = [
                       {formatEventDate(entry.data.date)}
                     </time>
                     <p class="activity__title">
-                      <a href="/academy" class="activity__link">{entry.data.title}</a>
+                      <a href={withBase('/academy')} class="activity__link">{entry.data.title}</a>
                     </p>
                     <p class="muted activity__meta">
                       {EVENT_TYPE_LABELS[entry.data.type]} · {entry.data.location}
@@ -145,7 +150,7 @@ const focus = [
               <p class="muted">No upcoming activities scheduled.</p>
             )
           }
-          <Button href="/academy" variant="ghost">All Academy events →</Button>
+          <Button href={withBase('/academy')} variant="ghost">All Academy events →</Button>
         </div>
       </div>
     </div>
@@ -162,7 +167,6 @@ const focus = [
     position: absolute;
     inset: 0;
     z-index: -2;
-    background-image: url('/images/hero-background.webp');
     background-size: cover;
     background-position: center 35%;
     filter: blur(2px);

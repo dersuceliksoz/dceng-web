@@ -6,6 +6,7 @@ import Timeline from '../components/Timeline.astro';
 import Button from '../components/Button.astro';
 import { profile } from '../data/profile';
 import { experience } from '../data/experience';
+import { withBase } from '../lib/url';
 
 const work = experience.filter((e) => e.kind === 'experience');
 const education = experience.filter((e) => e.kind === 'education');
@@ -16,7 +17,7 @@ const education = experience.filter((e) => e.kind === 'education');
     eyebrow="About"
     title="Engineering Profile"
     lede="Independent systems and control engineering"
-    photo="/images/about-hero-background.webp"
+    photo={withBase('/images/about-hero-background.webp')}
   />
 
   <!-- Background -->
@@ -90,7 +91,7 @@ const education = experience.filter((e) => e.kind === 'education');
     <div class="container container--narrow stack">
       <span class="eyebrow">Resume</span>
       <div class="cluster">
-        <Button href="/resume/Dersu_Celiksoz_Resume.pdf" target="_blank" rel="noopener noreferrer">Download Resume</Button>
+        <Button href={withBase('/resume/Dersu_Celiksoz_Resume.pdf')} target="_blank" rel="noopener noreferrer">Download Resume</Button>
       </div>
     </div>
   </section>

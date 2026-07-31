@@ -6,6 +6,7 @@ import PublicationFilters from '../components/PublicationFilters.astro';
 import PublicationList from '../components/PublicationList.astro';
 import TechnicalCard from '../components/TechnicalCard.astro';
 import { sortPublicationsAll, CATEGORY_LABELS } from '../lib/publications';
+import { withBase } from '../lib/url';
 
 const all = sortPublicationsAll(
   await getCollection('publications', ({ data }) => (import.meta.env.PROD ? data.status !== 'draft' : true)),
@@ -24,7 +25,7 @@ const linkFor = (data: (typeof all)[number]['data']) =>
     eyebrow="Publications"
     title="A technical library"
     lede="Journal articles and technical papers, patents, and engineering notes — the written record of the engineering work."
-    photo="/images/publications-hero-background.webp"
+    photo={withBase('/images/publications-hero-background.webp')}
   />
 
   <!-- Featured Work -->

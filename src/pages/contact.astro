@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactCard from '../components/ContactCard.astro';
 import { profile } from '../data/profile';
+import { withBase } from '../lib/url';
 ---
 
 <Layout title="Contact" description={`Get in touch with ${profile.name} — ${profile.location}.`}>
@@ -10,7 +11,7 @@ import { profile } from '../data/profile';
     eyebrow="Contact"
     title="Get in touch"
     lede="For engineering projects, technical advisory, research, or academy collaborations, feel free to get in touch."
-    photo="/images/contact-hero-background.webp"
+    photo={withBase('/images/contact-hero-background.webp')}
   />
 
   <!-- Contact channels -->

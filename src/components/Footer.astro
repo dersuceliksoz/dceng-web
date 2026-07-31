@@ -4,6 +4,7 @@
  * "DC Engineering Solutions" appears on the site.
  */
 import { NAV, profile } from '../data/profile';
+import { withBase } from '../lib/url';
 
 const year = new Date().getFullYear();
 ---
@@ -19,7 +20,7 @@ const year = new Date().getFullYear();
     <nav class="site-footer__nav" aria-label="Footer">
       <span class="site-footer__heading">Site</span>
       <ul class="stack">
-        {NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        {NAV.map((item) => <li><a href={withBase(item.href)}>{item.label}</a></li>)}
       </ul>
     </nav>
 

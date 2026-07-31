@@ -5,6 +5,7 @@ import TechnicalCard from '../components/TechnicalCard.astro';
 import TagList from '../components/TagList.astro';
 import CollabIcon from '../components/CollabIcon.astro';
 import { profile } from '../data/profile';
+import { withBase } from '../lib/url';
 
 const capabilities = [
   {
@@ -75,7 +76,7 @@ const selectedWork = [
     eyebrow="Engineering"
     title="Engineering systems from concept to validation"
     lede="Independent engineering across systems, control, modeling, and validation."
-    photo="/images/engineering-hero-background.webp"
+    photo={withBase('/images/engineering-hero-background.webp')}
   />
 
   <!-- Capabilities -->
@@ -147,7 +148,7 @@ const selectedWork = [
   <section class="section section--divided">
     <div class="container container--narrow crosslink">
       <p class="muted">
-        Further technical information is available <a href="/contact">upon request</a>.
+        Further technical information is available <a href={withBase('/contact')}>upon request</a>.
       </p>
     </div>
   </section>
