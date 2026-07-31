@@ -146,8 +146,8 @@ export const profile = {
     {
       channel: 'linkedin',
       label: 'LinkedIn',
-      value: 'Add your LinkedIn profile URL',
-      placeholder: true,
+      value: 'dersuceliksoz',
+      href: 'https://www.linkedin.com/in/dersuceliksoz/',
     },
     {
       channel: 'location',

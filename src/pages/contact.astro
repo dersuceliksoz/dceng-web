@@ -10,6 +10,7 @@ import { profile } from '../data/profile';
     eyebrow="Contact"
     title="Get in touch"
     lede="For engineering projects, technical advisory, research, or academy collaborations, feel free to get in touch."
+    photo="/images/contact-hero-background.webp"
   />
 
   <!-- Contact channels -->
@@ -19,10 +20,6 @@ import { profile } from '../data/profile';
       <div class="grid contact-grid">
         {profile.contacts.map((contact) => <ContactCard contact={contact} />)}
       </div>
-      <p class="muted note">
-        Placeholder channels are marked “Replace” — swap in real profile links in
-        <code>src/data/profile.ts</code>.
-      </p>
     </div>
   </section>
 </Layout>
@@ -30,8 +27,5 @@ import { profile } from '../data/profile';
 <style>
   .contact-grid {
     grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-  }
-  .note {
-    font-size: var(--step--1);
   }
 </style>

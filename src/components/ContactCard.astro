@@ -13,6 +13,7 @@ interface Props {
 const { contact, class: className } = Astro.props;
 const { channel, label, value, href, placeholder } = contact;
 const isLink = Boolean(href) && !placeholder;
+const isExternal = isLink && /^https?:/.test(href ?? '');
 ---
 
 <article class:list={['contact-card', { 'contact-card--placeholder': placeholder }, className]}>
@@ -26,7 +27,9 @@ const isLink = Boolean(href) && !placeholder;
     {channel === 'linkedin' && (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
         <rect x="3" y="3" width="18" height="18" rx="2" />
-        <path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 0 1 4 0v4M11 17v-7" />
+        <line x1="7" y1="10" x2="7" y2="17" />
+        <circle cx="7" cy="7.4" r="1" fill="currentColor" stroke="none" />
+        <path d="M11 17v-6a2 2 0 0 1 4 0v6" />
       </svg>
     )}
     {channel === 'github' && (
@@ -51,7 +54,14 @@ const isLink = Boolean(href) && !placeholder;
   <div class="contact-card__body">
     <span class="contact-card__label">{label}</span>
     {isLink ? (
-      <a class="contact-card__value" href={href}>{value}</a>
+      <a
+        class="contact-card__value"
+        href={href}
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
+      >
+        {value}
+      </a>
     ) : (
       <span class:list={['contact-card__value', { muted: placeholder }]}>{value}</span>
     )}
