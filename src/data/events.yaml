@@ -1,6 +1,5 @@
 # Academy events. Single YAML array loaded by file() — each entry needs a unique `id`.
 # `status` is authored, but Upcoming/Past is (re)classified at build time from `date`.
-# Entries with `placeholder: true` are still placeholders to be replaced with real events.
 
 - id: ai-estimation-engineering-talk
   title: "AI-Enabled Estimation for Embedded Control Systems"
@@ -9,51 +8,17 @@
   location: Online
   status: upcoming
   summary: >-
-    A practical engineering talk on how artificial intelligence and data-driven reduced-order
-    models can support embedded control systems. Topics include replacing selected physical
-    sensors with learned estimators, reducing model and hardware complexity, and integrating
-    data-driven estimation into real-time control architectures.
+    A practical engineering talk on using AI to replace physical sensors with software-based
+    virtual sensors and estimators. Covers building and applying AI-driven estimation for
+    embedded control systems in real engineering projects.
 
 - id: control-design-webinar
-  title: "Practical Control Design: From Model to Hardware"
+  title: "Practical Gimbal Control Design"
   type: webinar
   date: 2026-10-29
   location: Online
   status: upcoming
   summary: >-
-    A walkthrough of taking a plant model to a deployed controller — design choices,
-    robustness margins, and the SIL/HIL checks that catch problems before hardware.
-  placeholder: true
-
-- id: simulink-modeling-talk
-  title: "Structuring Large Simulink Models for V&V"
-  type: talk
-  date: 2026-03-12
-  location: Online
-  status: past
-  summary: >-
-    Patterns for keeping large models maintainable and testable — referencing,
-    interface contracts, and model-level verification.
-  placeholder: true
-
-- id: robust-control-webinar
-  title: "Robust Control in Practice"
-  type: webinar
-  date: 2025-11-06
-  location: Online
-  status: past
-  summary: >-
-    What robustness margins mean on real systems, and how to design for uncertainty,
-    delay, and actuator limits without over-conservatism.
-  placeholder: true
-
-- id: mbse-workshop
-  title: "Model-Based Systems Engineering for Control Teams"
-  type: workshop
-  date: 2025-06-19
-  location: Ankara, Türkiye
-  status: past
-  summary: >-
-    Connecting requirements, architecture, and control models into one traceable
-    workflow that survives the whole project lifecycle.
-  placeholder: true
+    An introduction to control-oriented gimbal design, covering stabilization principles and
+    controller architecture for multi-axis systems. Walks through a practical engineering
+    workflow and common design considerations encountered in real gimbal projects.
