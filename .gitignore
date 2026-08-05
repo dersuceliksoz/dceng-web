@@ -24,3 +24,8 @@ pnpm-debug.log*
 *.local
 .vscode/
 .idea/
+
+# Local development notes and Claude Code settings
+docs/
+.claude/
+CLAUDE.md
