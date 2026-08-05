@@ -4,9 +4,9 @@ import mdx from '@astrojs/mdx';
 
 // Static output (default) — no adapter, so dist/ deploys as-is to Vercel/Netlify/Cloudflare Pages.
 export default defineConfig({
-  // Deployed to GitHub Pages as a project site: https://dersuceliksoz.github.io/dceng-web/
-  // TODO: replace with the real production domain (and drop `base`) if/when a custom domain is set up.
-  site: 'https://dersuceliksoz.github.io',
-  base: '/dceng-web',
+  // Served from the custom domain root (GitHub Pages custom domain), so no `base` is needed —
+  // a repo-scoped base like '/dceng-web' only applies to GitHub Pages *project site* URLs
+  // (https://<user>.github.io/<repo>/), not to a custom domain serving from '/'.
+  site: 'https://dersuceliksoz.com',
   integrations: [mdx()],
 });
