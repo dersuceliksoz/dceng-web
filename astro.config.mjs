@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 
 // Static output (default) — no adapter, so dist/ deploys as-is to Vercel/Netlify/Cloudflare Pages.
 export default defineConfig({
@@ -8,5 +9,5 @@ export default defineConfig({
   // a repo-scoped base like '/dceng-web' only applies to GitHub Pages *project site* URLs
   // (https://<user>.github.io/<repo>/), not to a custom domain serving from '/'.
   site: 'https://dersuceliksoz.com',
-  integrations: [mdx()],
+  integrations: [mdx(), sitemap()],
 });

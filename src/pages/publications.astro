@@ -5,7 +5,7 @@ import PageHeader from '../components/PageHeader.astro';
 import PublicationFilters from '../components/PublicationFilters.astro';
 import PublicationList from '../components/PublicationList.astro';
 import TechnicalCard from '../components/TechnicalCard.astro';
-import { sortPublicationsAll, CATEGORY_LABELS } from '../lib/publications';
+import { sortPublicationsAll, CATEGORY_LABELS_SINGULAR } from '../lib/publications';
 import { withBase } from '../lib/url';
 
 const all = sortPublicationsAll(
@@ -38,7 +38,7 @@ const linkFor = (data: (typeof all)[number]['data']) =>
             {featured.map((p) => (
               <TechnicalCard
                 title={p.data.title}
-                eyebrow={CATEGORY_LABELS[p.data.category]}
+                eyebrow={CATEGORY_LABELS_SINGULAR[p.data.category]}
                 graphic={p.data.graphic}
                 href={linkFor(p.data)}
               >

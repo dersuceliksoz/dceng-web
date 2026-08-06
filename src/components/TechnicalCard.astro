@@ -27,6 +27,7 @@ interface Props {
 }
 
 const { title, eyebrow, href, graphic, class: className } = Astro.props;
+const isExternal = Boolean(href) && /^https?:/.test(href ?? '');
 ---
 
 <article class:list={['tcard', { 'tcard--linked': href }, className]}>
@@ -34,7 +35,18 @@ const { title, eyebrow, href, graphic, class: className } = Astro.props;
   <div class="tcard__body stack">
     {eyebrow && <span class="eyebrow">{eyebrow}</span>}
     <h3 class="tcard__title">
-      {href ? <a href={href} class="tcard__link">{title}</a> : title}
+      {href ? (
+        <a
+          href={href}
+          class="tcard__link"
+          target={isExternal ? '_blank' : undefined}
+          rel={isExternal ? 'noopener noreferrer' : undefined}
+        >
+          {title}
+        </a>
+      ) : (
+        title
+      )}
     </h3>
     <div class="tcard__text muted"><slot /></div>
   </div>

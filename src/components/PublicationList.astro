@@ -6,7 +6,7 @@
  * Rows are rendered in build-time sort order; the client filter only show/hides.
  */
 import type { CollectionEntry } from 'astro:content';
-import { CATEGORY_LABELS, formatPubDate } from '../lib/publications';
+import { CATEGORY_LABELS_SINGULAR, formatPubDate } from '../lib/publications';
 import TagList from './TagList.astro';
 
 interface Props {
@@ -38,7 +38,7 @@ function linkFor(data: CollectionEntry<'publications'>['data']): string | undefi
         >
           <div class="pub-row__aside">
             <time class="pub-row__date" datetime={iso}>{formatPubDate(data.date)}</time>
-            <span class="pub-row__cat">{CATEGORY_LABELS[data.category]}</span>
+            <span class="pub-row__cat">{CATEGORY_LABELS_SINGULAR[data.category]}</span>
           </div>
           <div class="pub-row__main">
             <div class="pub-row__badges">
@@ -47,7 +47,7 @@ function linkFor(data: CollectionEntry<'publications'>['data']): string | undefi
             </div>
             <h3 class="pub-row__title">
               {href ? (
-                <a href={href} rel="noopener noreferrer">
+                <a href={href} target="_blank" rel="noopener noreferrer">
                   {data.title}
                 </a>
               ) : (
