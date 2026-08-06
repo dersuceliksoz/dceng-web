@@ -4,8 +4,9 @@
  * Pass `title` and `description` per page; both have sensible profile defaults.
  *
  * `noindex` is for non-content routes (currently just 404): it suppresses the
- * canonical link and the entire Open Graph / Twitter block, since a page that
- * shouldn't be indexed also shouldn't claim a shareable canonical identity.
+ * canonical link, the entire Open Graph / Twitter block, and the JSON-LD
+ * identity graph, since a page that shouldn't be indexed also shouldn't
+ * claim a shareable canonical identity.
  */
 import '../styles/global.css';
 import '@fontsource-variable/inter';
@@ -13,6 +14,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { profile } from '../data/profile';
 import { withBase } from '../lib/url';
+import { buildSiteGraph } from '../lib/schema';
 
 interface Props {
   title?: string;
@@ -39,6 +41,7 @@ const fullTitle = title ? `${title} · ${profile.name}` : `${profile.name} — $
 const desc = description ?? profile.brandLine;
 const canonical = canonicalProp ?? new URL(Astro.url.pathname, Astro.site).href;
 const imageUrl = new URL(withBase(image), Astro.site).href;
+const siteGraph = !noindex && Astro.site ? buildSiteGraph(Astro.site) : null;
 ---
 
 <!doctype html>
@@ -69,6 +72,7 @@ const imageUrl = new URL(withBase(image), Astro.site).href;
           <meta name="twitter:description" content={desc} />
           <meta name="twitter:image" content={imageUrl} />
           <meta name="twitter:image:alt" content={imageAlt} />
+          {siteGraph && <script type="application/ld+json" is:inline set:html={JSON.stringify(siteGraph)} />}
         </>
       )
     }
