@@ -6,8 +6,11 @@ import EventFilters from '../components/EventFilters.astro';
 import Button from '../components/Button.astro';
 import { prepareEvents, formatEventDate, EVENT_TYPE_LABELS } from '../lib/events';
 import { withBase } from '../lib/url';
+import { buildEventsGraph } from '../lib/schema';
 
-const events = prepareEvents(await getCollection('events'));
+const rawEvents = await getCollection('events');
+const events = prepareEvents(rawEvents);
+const eventsGraph = Astro.site ? buildEventsGraph(Astro.site, rawEvents) : null;
 ---
 
 <Layout
@@ -84,6 +87,7 @@ const events = prepareEvents(await getCollection('events'));
   <script>
     import '../scripts/filters.ts';
   </script>
+  {eventsGraph && <script type="application/ld+json" is:inline set:html={JSON.stringify(eventsGraph)} />}
 </Layout>
 
 <style>

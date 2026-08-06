@@ -3,6 +3,7 @@
  * once per real page by Layout.astro. Every field is sourced directly from
  * src/data/profile.ts — nothing here should drift independently of it.
  */
+import type { CollectionEntry } from 'astro:content';
 import { profile } from '../data/profile';
 
 /**
@@ -56,5 +57,49 @@ export function buildSiteGraph(siteUrl: URL) {
   return {
     '@context': 'https://schema.org',
     '@graph': [person, website],
+  };
+}
+
+/**
+ * Page-specific { @context, @graph: Event[] } block for Academy's real,
+ * non-placeholder events. Deliberately separate from `buildSiteGraph()` and
+ * rendered only on the Academy page — `organizer` references the global
+ * graph's Person by `@id` only, so Person is never duplicated across the
+ * two JSON-LD blocks that end up on that page.
+ */
+export function buildEventsGraph(siteUrl: URL, events: CollectionEntry<'events'>[]) {
+  const base = siteUrl.href;
+  const personId = `${base}#person`;
+  const academyUrl = `${base}academy/`;
+
+  const eventEntities = events
+    .filter((event) => !event.data.placeholder)
+    .map((event) => {
+      const { data } = event;
+      const isOnline = data.location === 'Online';
+
+      return {
+        '@type': 'Event',
+        '@id': `${academyUrl}#event-${event.id}`,
+        name: data.title,
+        description: data.summary,
+        startDate: data.date.toISOString().slice(0, 10),
+        eventStatus: 'https://schema.org/EventScheduled',
+        eventAttendanceMode: isOnline
+          ? 'https://schema.org/OnlineEventAttendanceMode'
+          : 'https://schema.org/OfflineEventAttendanceMode',
+        location: isOnline
+          ? { '@type': 'VirtualLocation', url: academyUrl }
+          : { '@type': 'Place', name: data.location },
+        url: academyUrl,
+        organizer: { '@id': personId },
+      };
+    });
+
+  if (eventEntities.length === 0) return null;
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': eventEntities,
   };
 }
