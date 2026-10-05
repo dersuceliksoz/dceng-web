@@ -4,12 +4,14 @@ import PageHeader from '../components/PageHeader.astro';
 import TechnicalCard from '../components/TechnicalCard.astro';
 import TagList from '../components/TagList.astro';
 import CollabIcon from '../components/CollabIcon.astro';
+import CapabilityIcon from '../components/CapabilityIcon.astro';
 import { profile } from '../data/profile';
 import { withBase } from '../lib/url';
 
 const capabilities = [
   {
     title: 'System Design & Integration',
+    icon: 'architecture' as const,
     items: [
       'Requirements Engineering',
       'Electrification Architecture',
@@ -21,8 +23,8 @@ const capabilities = [
   },
   {
     title: 'Modeling & Simulation',
+    icon: 'model' as const,
     items: [
-      'Dynamic System Modeling',
       'Multi-Domain Simulation',
       'Vehicle & Powertrain Modeling',
       'System Identification',
@@ -33,10 +35,12 @@ const capabilities = [
   },
   {
     title: 'Control System Design',
+    icon: 'control' as const,
     items: ['Motion Control', 'Supervisory Control', 'State Machines', 'Energy Management', 'State Estimation', 'Fault Management'],
   },
   {
     title: 'Verification & Validation',
+    icon: 'verification' as const,
     items: [
       'Test Planning',
       'Code Generation',
@@ -88,6 +92,7 @@ const selectedWork = [
         {
           capabilities.map((c) => (
             <TechnicalCard title={c.title}>
+              <CapabilityIcon slot="icon" variant={c.icon} />
               <ul class="cap__list">
                 {c.items.map((item) => <li>{item}</li>)}
               </ul>

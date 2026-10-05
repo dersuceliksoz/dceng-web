@@ -1,8 +1,10 @@
 ---
 /**
  * Hairline card with an optional eyebrow/index, title, body slot, and an
- * optional PreviewGraphic. When `href` is set the whole card is clickable via a
- * stretched link (only rendered when href exists, so it never wraps nothing).
+ * optional PreviewGraphic. An optional named `icon` slot renders a compact
+ * icon above the title (used by Engineering → Capabilities). When `href` is
+ * set the whole card is clickable via a stretched link (only rendered when
+ * href exists, so it never wraps nothing).
  */
 import PreviewGraphic from './PreviewGraphic.astro';
 
@@ -33,6 +35,7 @@ const isExternal = Boolean(href) && /^https?:/.test(href ?? '');
 <article class:list={['tcard', { 'tcard--linked': href }, className]}>
   {graphic && <PreviewGraphic variant={graphic} />}
   <div class="tcard__body stack">
+    <slot name="icon" />
     {eyebrow && <span class="eyebrow">{eyebrow}</span>}
     <h3 class="tcard__title">
       {href ? (

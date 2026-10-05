@@ -1,0 +1,117 @@
+---
+/**
+ * Compact technical line-art icons for the Engineering Capabilities cards.
+ * Sits between PreviewGraphic's wide 16:9 scenes (Home) and CollabIcon's
+ * abstract glyphs (Collaboration Models): a small, literal engineering symbol
+ * on a hairline circular tile. Stroke-only, navy, same rendered line weight as
+ * CollabIcon. Decorative only; the card title carries the meaning.
+ */
+type Variant = 'architecture' | 'model' | 'control' | 'verification';
+
+interface Props {
+  variant: Variant;
+  class?: string;
+}
+
+const { variant, class: className } = Astro.props;
+---
+
+<span class:list={['cap-icon', className]} aria-hidden="true">
+  <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+    {
+      variant === 'architecture' && (
+        <g>
+          <rect x="17" y="5" width="14" height="10" rx="1.5" />
+          <line x1="24" y1="15" x2="24" y2="23" />
+          <line x1="10" y1="23" x2="38" y2="23" />
+          <line x1="10" y1="23" x2="10" y2="31" />
+          <line x1="24" y1="23" x2="24" y2="31" />
+          <line x1="38" y1="23" x2="38" y2="31" />
+          <rect x="4" y="31" width="12" height="10" rx="1.5" />
+          <rect x="18" y="31" width="12" height="10" rx="1.5" />
+          <rect x="32" y="31" width="12" height="10" rx="1.5" />
+        </g>
+      )
+    }
+
+    {
+      variant === 'model' && (
+        <g>
+          <line x1="10.6" y1="22.5" x2="18.4" y2="13.5" />
+          <line x1="10.6" y1="25.5" x2="18.4" y2="34.5" />
+          <line x1="21" y1="15" x2="21" y2="33" />
+          <line x1="23.8" y1="11.2" x2="36.4" y2="21.6" />
+          <line x1="23.8" y1="36.8" x2="36.4" y2="26.4" />
+          <circle cx="8" cy="24" r="3" />
+          <circle cx="21" cy="12" r="3" />
+          <circle cx="21" cy="36" r="3" />
+          <circle cx="39" cy="24" r="4" />
+          <circle class="cap-icon__dot" cx="39" cy="24" r="1.2" />
+        </g>
+      )
+    }
+
+    {
+      variant === 'control' && (
+        <g>
+          <line x1="3" y1="18" x2="6" y2="18" />
+          <circle cx="10" cy="18" r="4" />
+          <line x1="14" y1="18" x2="18" y2="18" />
+          <rect x="18" y="11" width="13" height="14" rx="1.5" />
+          <line x1="31" y1="18" x2="45" y2="18" />
+          <polyline points="42,15 45,18 42,21" />
+          <polyline points="38,18 38,37 10,37 10,22" />
+          <polyline points="7,25 10,22 13,25" />
+        </g>
+      )
+    }
+
+    {
+      variant === 'verification' && (
+        <g>
+          <polyline points="5,5 5,43 43,43" />
+          <line class="cap-icon__soft" x1="5" y1="14" x2="43" y2="14" />
+          <path d="M5 39 C 11 39, 12 10, 18 13 S 28 15, 43 14" />
+          <circle cx="34" cy="31" r="7" />
+          <polyline points="30.5,31 33,33.5 37.5,28.5" />
+        </g>
+      )
+    }
+  </svg>
+</span>
+
+<style>
+  .cap-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    align-self: flex-start;
+    width: 56px;
+    height: 56px;
+    margin-bottom: var(--space-3xs);
+    border-radius: 50%;
+    border: var(--border-hairline);
+    background: var(--color-surface-2);
+  }
+
+  .cap-icon svg {
+    width: 38px;
+    height: 38px;
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .cap-icon__soft {
+    stroke: var(--color-accent-soft);
+    stroke-width: 1.2;
+    stroke-dasharray: 2 2.5;
+  }
+
+  .cap-icon__dot {
+    fill: var(--color-accent);
+    stroke: none;
+  }
+</style>
