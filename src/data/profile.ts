@@ -64,7 +64,7 @@ export const profile = {
 
   /** Application domains (Engineering page). */
   domains: [
-    'Automotive & Vehicle Dynamics',
+    'Automotive & Vehicle Electrification',
     'Aerospace & Defense',
     'Robotics & Motion Control',
     'Energy & Power Systems',
