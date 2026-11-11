@@ -7,9 +7,6 @@ summary: "An adaptive, state-tuned power management system for a series hybrid e
 venue: "16th International Symposium on Advanced Vehicle Control (AVEC 2024)"
 doi: "10.1007/978-3-031-70392-8_60"
 featured: true
-homeFeatured: true
-homeTitle: "Adaptive State-Tuned Power Management for Series Hybrid Electric Tracked Vehicles"
-homeSummary: "Hierarchical power management for series hybrid electric tracked vehicles, validated through Model-in-the-Loop (MIL) and Driver-in-the-Loop (DIL) simulations."
 status: published
 tags: ["Power Management", "Hybrid Electric Vehicles", "Hierarchical Control"]
 ---

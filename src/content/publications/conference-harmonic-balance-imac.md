@@ -7,6 +7,9 @@ summary: "A harmonic balance formulation for predicting the forced response of n
 venue: "Proceedings of the 43rd IMAC – A Conference and Exposition on Structural Dynamics 2025"
 doi: "10.13052/97887-438-0146-7_17"
 featured: false
+homeFeatured: true
+homeTitle: "Forced Response of Nonlinear Systems Under Multi-Frequency Excitations"
+homeSummary: "Harmonic Balance analysis of nonlinear system responses under multi-frequency excitation, providing a frequency-domain view of nonlinear dynamics."
 status: published
 tags: ["Harmonic Balance Method", "Nonlinear Dynamics", "Structural Vibration"]
 ---

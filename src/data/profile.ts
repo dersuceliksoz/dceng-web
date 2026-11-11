@@ -60,12 +60,11 @@ export const profile = {
   /** Footer-only company text — must not appear elsewhere on the site. */
   company: 'DC Engineering Solutions',
   location: 'Ankara, Türkiye',
-  email: 'dersuceliksoz@outlook.com',
+  email: 'dersu@dersuceliksoz.com',
 
   /** Application domains (Engineering page). */
   domains: [
     'Automotive & Vehicle Electrification',
-    'Aerospace & Defense',
     'Robotics & Motion Control',
     'Energy & Power Systems',
     'Industrial Automation',
@@ -140,8 +139,8 @@ export const profile = {
     {
       channel: 'email',
       label: 'Email',
-      value: 'dersuceliksoz@outlook.com',
-      href: 'mailto:dersuceliksoz@outlook.com',
+      value: 'dersu@dersuceliksoz.com',
+      href: 'mailto:dersu@dersuceliksoz.com',
     },
     {
       channel: 'linkedin',

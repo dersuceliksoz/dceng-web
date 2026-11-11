@@ -55,6 +55,7 @@ function linkFor(data: CollectionEntry<'publications'>['data']): string | undefi
               )}
             </h3>
             <p class="pub-row__meta muted">
+              {data.category === 'patent' && 'Inventors: '}
               {data.authors.join(', ')}
               {data.venue && <span> · {data.venue}</span>}
             </p>

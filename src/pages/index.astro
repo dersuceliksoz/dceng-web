@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import TechnicalCard from '../components/TechnicalCard.astro';
 import { profile } from '../data/profile';
-import { sortPublicationsAll, selectHomeFeatured, CATEGORY_LABELS_SINGULAR } from '../lib/publications';
+import { sortPublicationsAll, selectHomeFeatured, CATEGORY_LABELS_SINGULAR, formatPubDate } from '../lib/publications';
 import { prepareEvents, formatEventDate, EVENT_TYPE_LABELS } from '../lib/events';
 import { withBase } from '../lib/url';
 
@@ -102,6 +102,9 @@ const focus = [
               <article class="card stack feature">
                 <div class="cluster feature__meta">
                   <span class="feature__cat">{CATEGORY_LABELS_SINGULAR[latest.data.category]}</span>
+                  <time class="feature__date" datetime={latest.data.date.toISOString().slice(0, 10)}>
+                    {formatPubDate(latest.data.date)}
+                  </time>
                 </div>
                 <h3>
                   {latestHref ? (
@@ -112,6 +115,7 @@ const focus = [
                     latestTitle
                   )}
                 </h3>
+                {latest.data.venue && <p class="muted feature__venue">{latest.data.venue}</p>}
                 <p class="muted">{latestSummary}</p>
                 {
                   latestHref && (
@@ -223,6 +227,14 @@ const focus = [
   }
   .feature__meta {
     justify-content: space-between;
+  }
+  .feature__date {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--color-text-muted);
+  }
+  .feature__venue {
+    font-size: var(--step--1);
   }
   .feature__link {
     color: inherit;
